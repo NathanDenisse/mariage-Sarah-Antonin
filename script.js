@@ -151,66 +151,6 @@ function initFAQ() {
 }
 
 /**
- * Gère la navigation smooth et l'highlighting des liens actifs
- */
-function initSmoothNavigation() {
-  const navLinks = document.querySelectorAll('.nav-link');
-  const sections = document.querySelectorAll('section[id]');
-
-  // Fonction pour déterminer quelle section est visible
-  function getCurrentSection() {
-    let current = '';
-    const scrollPosition = window.scrollY + 100;
-
-    sections.forEach(section => {
-      const sectionTop = section.offsetTop;
-      const sectionHeight = section.offsetHeight;
-
-      if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-        current = section.getAttribute('id');
-      }
-    });
-
-    return current;
-  }
-
-  // Mettre à jour les liens actifs
-  function updateActiveNavLink() {
-    const currentSection = getCurrentSection();
-
-    navLinks.forEach(link => {
-      link.classList.remove('active');
-      if (link.getAttribute('href') === `#${currentSection}`) {
-        link.classList.add('active');
-      }
-    });
-  }
-
-  // Écouter le scroll pour mettre à jour la navigation
-  window.addEventListener('scroll', updateActiveNavLink);
-
-  // Navigation smooth pour les liens internes
-  navLinks.forEach(link => {
-    link.addEventListener('click', (e) => {
-      const href = link.getAttribute('href');
-
-      if (href.startsWith('#')) {
-        e.preventDefault();
-        const targetSection = document.querySelector(href);
-
-        if (targetSection) {
-          const offsetTop = targetSection.offsetTop - 70; // Compenser la navbar fixe
-          window.scrollTo({
-            top: offsetTop,
-            behavior: 'smooth'
-          });
-        }
-      }
-    });
-  });
-}
-
-/**
  * Ajoute des effets de parallaxe subtils
  */
 function initParallaxEffects() {
@@ -338,7 +278,6 @@ function showNotification(message, type = 'info') {
  */
 function initStickySectionButton() {
   const sections = Array.from(document.querySelectorAll('section[id]'));
-  const footers = Array.from(document.querySelectorAll('.section-footer'));
   const navButton = document.createElement('a');
   navButton.className = 'nav-button sticky-next';
   navButton.style.display = 'none';
@@ -353,7 +292,13 @@ function initStickySectionButton() {
       navButton.style.display = 'none';
       return;
     }
+    // Si la section suivante est visible à plus de 40% dans la fenêtre, on cache le bouton
     const nextSection = sections[currentSectionIndex + 1];
+    const nextRect = nextSection.getBoundingClientRect();
+    if (nextRect.top < window.innerHeight * 0.4 && nextRect.bottom > window.innerHeight * 0.2) {
+      navButton.style.display = 'none';
+      return;
+    }
     navButton.href = `#${nextSection.id}`;
     navButton.innerHTML = `${nextSection.querySelector('.section-title')?.textContent || 'Section suivante'} <span class="arrow">→</span>`;
     navButton.style.display = 'flex';
@@ -363,6 +308,53 @@ function initStickySectionButton() {
   window.addEventListener('resize', updateButton);
   document.addEventListener('DOMContentLoaded', updateButton);
   updateButton();
+}
+
+function initModernSmoothNav() {
+  const navLinks = document.querySelectorAll('.nav-link');
+  const sections = document.querySelectorAll('section[id]');
+  const navBar = document.querySelector('.navbar');
+  const navHeight = navBar ? navBar.offsetHeight : 60;
+
+  // Highlight actif
+  function getCurrentSection() {
+    let current = '';
+    const scrollPosition = window.scrollY + navHeight + 10;
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.offsetHeight;
+      if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+        current = section.getAttribute('id');
+      }
+    });
+    return current;
+  }
+  function updateActiveNavLink() {
+    const currentSection = getCurrentSection();
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === `#${currentSection}`) {
+        link.classList.add('active');
+      }
+    });
+  }
+  window.addEventListener('scroll', updateActiveNavLink);
+  document.addEventListener('DOMContentLoaded', updateActiveNavLink);
+
+  // Scroll smooth avec offset
+  navLinks.forEach(link => {
+    link.addEventListener('click', function (e) {
+      const href = link.getAttribute('href');
+      if (href && href.startsWith('#')) {
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (target) {
+          const y = target.getBoundingClientRect().top + window.scrollY - navHeight + 1;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+      }
+    });
+  });
 }
 
 /**
@@ -382,9 +374,6 @@ function initWebsite() {
   // Initialiser la FAQ
   initFAQ();
 
-  // Initialiser la navigation smooth
-  initSmoothNavigation();
-
   // Initialiser les effets de parallaxe
   initParallaxEffects();
 
@@ -399,6 +388,9 @@ function initWebsite() {
 
   // Initialiser le bouton sticky
   initStickySectionButton();
+
+  // Initialiser la navigation smooth
+  initModernSmoothNav();
 
   // Ajouter un message de bienvenue dans la console
   console.log('🎉 Site de mariage Sarah & Antonin chargé avec succès !');

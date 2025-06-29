@@ -15,11 +15,16 @@
 </head>
 
 <body>
-  <!-- Navigation sticky -->
-  <nav class="navbar">
+  <!-- Navigation sticky minimaliste -->
+  <nav class="navbar" role="navigation" aria-label="Navigation principale">
     <div class="nav-container">
-      <div class="nav-logo">S&A</div>
-      <ul class="nav-menu">
+      <a href="#accueil" class="nav-logo" aria-label="Accueil">S&A</a>
+      <button class="hamburger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="nav-menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+      <ul class="nav-menu" id="nav-menu">
         <li><a href="#accueil" class="nav-link">Accueil</a></li>
         <li><a href="#histoire" class="nav-link">Notre histoire</a></li>
         <li><a href="#programme" class="nav-link">Programme</a></li>
@@ -29,11 +34,6 @@
         <li><a href="#dresscode" class="nav-link">Dress code</a></li>
         <li><a href="#covoiturage" class="nav-link">Covoiturage</a></li>
       </ul>
-      <div class="hamburger">
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
-      </div>
     </div>
   </nav>
 
@@ -107,9 +107,6 @@
           </div>
         </div>
       </div>
-      <a href="#programme" class="nav-button">
-        Découvrir le programme <span class="arrow">→</span>
-      </a>
     </div>
   </section>
 
@@ -187,9 +184,6 @@
           </div>
         </div>
       </div>
-      <a href="#infos" class="nav-button">
-        Informations pratiques <span class="arrow">→</span>
-      </a>
     </div>
   </section>
 
@@ -272,9 +266,6 @@
           </ul>
         </div>
       </div>
-      <a href="#cagnotte" class="nav-button">
-        Cagnotte <span class="arrow">→</span>
-      </a>
     </div>
   </section>
 
@@ -341,9 +332,6 @@
           </ul>
         </div>
       </div>
-      <a href="#faq" class="nav-button">
-        Questions fréquentes <span class="arrow">→</span>
-      </a>
     </div>
   </section>
 
@@ -363,9 +351,6 @@
         <div style="font-size:0.95rem; color:var(--color-gray); margin-top:1rem;">(Tableau collaboratif Google Sheets -
           modifiable par tous)</div>
       </div>
-      <a href="#accueil" class="nav-button">
-        Retour à l'accueil <span class="arrow">↑</span>
-      </a>
     </div>
   </section>
 

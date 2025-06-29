@@ -310,17 +310,32 @@ function initStickySectionButton() {
   updateButton();
 }
 
-function initModernSmoothNav() {
+// NAVIGATION MINIMALISTE
+function initMinimalNavBar() {
+  const hamburger = document.querySelector('.hamburger');
+  const navMenu = document.querySelector('.nav-menu');
   const navLinks = document.querySelectorAll('.nav-link');
-  const sections = document.querySelectorAll('section[id]');
   const navBar = document.querySelector('.navbar');
   const navHeight = navBar ? navBar.offsetHeight : 60;
 
-  // Highlight actif
+  // Hamburger mobile
+  hamburger.addEventListener('click', () => {
+    const isOpen = navMenu.classList.toggle('open');
+    hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    if (isOpen) navMenu.querySelector('.nav-link').focus();
+  });
+  // Fermer menu mobile au clic sur lien
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      navMenu.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+    });
+  });
+  // Highlight actif + scroll smooth offset
   function getCurrentSection() {
     let current = '';
     const scrollPosition = window.scrollY + navHeight + 10;
-    sections.forEach(section => {
+    document.querySelectorAll('section[id]').forEach(section => {
       const sectionTop = section.offsetTop;
       const sectionHeight = section.offsetHeight;
       if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
@@ -340,8 +355,7 @@ function initModernSmoothNav() {
   }
   window.addEventListener('scroll', updateActiveNavLink);
   document.addEventListener('DOMContentLoaded', updateActiveNavLink);
-
-  // Scroll smooth avec offset
+  // Scroll smooth offset
   navLinks.forEach(link => {
     link.addEventListener('click', function (e) {
       const href = link.getAttribute('href');
@@ -390,7 +404,7 @@ function initWebsite() {
   initStickySectionButton();
 
   // Initialiser la navigation smooth
-  initModernSmoothNav();
+  initMinimalNavBar();
 
   // Ajouter un message de bienvenue dans la console
   console.log('🎉 Site de mariage Sarah & Antonin chargé avec succès !');

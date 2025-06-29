@@ -1,3 +1,8 @@
+// ===== CONFIGURATION SUPABASE =====
+const SUPABASE_URL = 'https://leokaeqifxrtoudfuhb.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imxlb2thZXFpZnhydG9vdWRmdWhiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTEyMzIwNDEsImV4cCI6MjA2NjgwODA0MX0.zQKNH-CSifGGKKaQKfoc_VUx1Fnu_eumNq0jpU_IOlI';
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
 // ===== VARIABLES GLOBALES =====
 const weddingDate = new Date('August 23, 2025 15:00:00').getTime();
 
@@ -404,7 +409,7 @@ function initMinimalNavBar() {
 /**
  * Initialise la section covoiturage
  */
-function initCovoiturage() {
+async function initCovoiturage() {
   const btnProposer = document.getElementById('btn-proposer');
   const btnRechercher = document.getElementById('btn-rechercher');
   const formProposer = document.getElementById('form-proposer');
@@ -478,13 +483,13 @@ function initCovoiturage() {
   });
 
   // Charger les trajets au démarrage
-  chargerTrajetsExemples();
+  await afficherTrajets();
 }
 
 /**
  * Envoie la proposition de covoiturage
  */
-function envoyerPropositionCovoiturage() {
+async function envoyerPropositionCovoiturage() {
   const formData = {
     id: Date.now(), // ID unique
     nom: document.getElementById('nom').value,
@@ -496,11 +501,11 @@ function envoyerPropositionCovoiturage() {
     places: parseInt(document.getElementById('places').value),
     commentaires: document.getElementById('commentaires').value,
     timestamp: new Date().toISOString(),
-    statut: 'disponible' // Nouveau champ pour le statut
+    statut: 'disponible'
   };
 
-  // Sauvegarder dans le stockage local
-  sauvegarderTrajet(formData);
+  // Sauvegarder dans Supabase
+  await sauvegarderTrajet(formData);
 
   // Créer le message pour l'email (pour backup)
   const message = `
@@ -534,105 +539,68 @@ Merci !
 
   // Actualiser l'affichage si la liste est visible
   if (document.getElementById('liste-trajets').style.display !== 'none') {
-    afficherTrajets();
+    await afficherTrajets();
   }
 }
 
 /**
- * Sauvegarde un trajet dans le stockage local
+ * Sauvegarde un trajet dans Supabase
  */
-function sauvegarderTrajet(trajet) {
-  let trajets = JSON.parse(localStorage.getItem('covoiturage_trajets') || '[]');
-  trajets.push(trajet);
-  localStorage.setItem('covoiturage_trajets', JSON.stringify(trajets));
-}
-
-/**
- * Met à jour un trajet existant
- */
-function mettreAJourTrajet(trajetModifie) {
-  let trajets = JSON.parse(localStorage.getItem('covoiturage_trajets') || '[]');
-  const index = trajets.findIndex(t => t.id === trajetModifie.id);
-
-  if (index !== -1) {
-    trajets[index] = { ...trajets[index], ...trajetModifie };
-    localStorage.setItem('covoiturage_trajets', JSON.stringify(trajets));
-    return true;
+async function sauvegarderTrajet(trajet) {
+  const { error } = await supabase.from('covoiturage').insert([trajet]);
+  if (error) {
+    afficherMessageConfirmation('Erreur lors de l\'ajout du trajet', 'error');
+    console.error(error);
   }
-  return false;
 }
 
 /**
- * Supprime un trajet
+ * Met à jour un trajet existant dans Supabase
  */
-function supprimerTrajet(trajetId) {
-  let trajets = JSON.parse(localStorage.getItem('covoiturage_trajets') || '[]');
-  trajets = trajets.filter(t => t.id !== trajetId);
-  localStorage.setItem('covoiturage_trajets', JSON.stringify(trajets));
-}
-
-/**
- * Récupère tous les trajets du stockage local
- */
-function recupererTrajets() {
-  return JSON.parse(localStorage.getItem('covoiturage_trajets') || '[]');
-}
-
-/**
- * Charge des exemples de trajets au premier démarrage
- */
-function chargerTrajetsExemples() {
-  const trajets = recupererTrajets();
-  if (trajets.length === 0) {
-    const trajetsExemples = [
-      {
-        id: 1,
-        nom: 'Marie D.',
-        telephone: '06 12 34 56 78',
-        depart: 'Nice',
-        arrivee: 'Domaine les Aigas',
-        date: '23-08-2025',
-        heure: '13h30',
-        places: 3,
-        commentaires: 'Départ gare Nice-Ville, retour possible le dimanche',
-        timestamp: new Date().toISOString(),
-        statut: 'disponible'
-      },
-      {
-        id: 2,
-        nom: 'Thomas L.',
-        telephone: '06 98 76 54 32',
-        depart: 'Marseille',
-        arrivee: 'Domaine les Aigas',
-        date: '22-08-2025',
-        heure: '16h00',
-        places: 2,
-        commentaires: 'Passage par Aix-en-Provence possible',
-        timestamp: new Date().toISOString(),
-        statut: 'disponible'
-      },
-      {
-        id: 3,
-        nom: 'Sophie M.',
-        telephone: '06 55 44 33 22',
-        depart: 'Domaine les Aigas',
-        arrivee: 'Nice',
-        date: '24-08-2025',
-        heure: '14h00',
-        places: 4,
-        commentaires: 'Retour vers Nice après le brunch',
-        timestamp: new Date().toISOString(),
-        statut: 'disponible'
-      }
-    ];
-    localStorage.setItem('covoiturage_trajets', JSON.stringify(trajetsExemples));
+async function mettreAJourTrajet(trajetModifie) {
+  const { error } = await supabase
+    .from('covoiturage')
+    .update({ places: trajetModifie.places, statut: trajetModifie.statut })
+    .eq('id', trajetModifie.id);
+  if (error) {
+    afficherMessageConfirmation('Erreur lors de la modification', 'error');
+    console.error(error);
+    return false;
   }
+  return true;
+}
+
+/**
+ * Supprime un trajet dans Supabase
+ */
+async function supprimerTrajet(trajetId) {
+  const { error } = await supabase.from('covoiturage').delete().eq('id', trajetId);
+  if (error) {
+    afficherMessageConfirmation('Erreur lors de la suppression', 'error');
+    console.error(error);
+  }
+}
+
+/**
+ * Récupère tous les trajets depuis Supabase
+ */
+async function recupererTrajets() {
+  const { data, error } = await supabase
+    .from('covoiturage')
+    .select('*')
+    .order('date', { ascending: true })
+    .order('heure', { ascending: true });
+  if (error) {
+    console.error('Erreur chargement covoiturage:', error);
+    return [];
+  }
+  return data || [];
 }
 
 /**
  * Affiche les trajets avec filtres
  */
-function afficherTrajets() {
+async function afficherTrajets() {
   const container = document.getElementById('trajets-container');
   const filtreDate = document.getElementById('filtre-date');
   const filtreDirection = document.getElementById('filtre-direction');
@@ -640,7 +608,7 @@ function afficherTrajets() {
 
   if (!container) return;
 
-  let trajets = recupererTrajets();
+  let trajets = await recupererTrajets();
 
   // Appliquer les filtres
   if (filtreDate && filtreDate.value) {
@@ -744,10 +712,10 @@ function afficherTrajets() {
   mettreAJourStatistiques();
 }
 
-function supprimerTrajetAvecConfirmation(trajetId) {
+async function supprimerTrajetAvecConfirmation(trajetId) {
   if (confirm('Voulez-vous vraiment supprimer ce trajet ?')) {
-    supprimerTrajet(trajetId);
-    afficherTrajets();
+    await supprimerTrajet(trajetId);
+    await afficherTrajets();
     afficherMessageConfirmation('Trajet supprimé.');
   }
 }
@@ -823,7 +791,7 @@ function modifierTrajet(trajetId) {
 /**
  * Sauvegarde les modifications d'un trajet
  */
-function sauvegarderModification(trajetId) {
+async function sauvegarderModification(trajetId) {
   const places = parseInt(document.getElementById('places-modif').value);
   const statut = document.getElementById('statut-modif').value;
 
@@ -833,9 +801,9 @@ function sauvegarderModification(trajetId) {
     statut: statut
   };
 
-  if (mettreAJourTrajet(modification)) {
+  if (await mettreAJourTrajet(modification)) {
     afficherMessageConfirmation('Trajet modifié avec succès !');
-    afficherTrajets();
+    await afficherTrajets();
   } else {
     afficherMessageConfirmation('Erreur lors de la modification', 'error');
   }
@@ -924,7 +892,7 @@ function afficherTrajetsExemples() {
 /**
  * Initialise toutes les fonctionnalités du site
  */
-function initWebsite() {
+async function initWebsite() {
   // Initialiser le compte à rebours
   updateCountdown();
   setInterval(updateCountdown, 1000);
@@ -957,7 +925,7 @@ function initWebsite() {
   initMinimalNavBar();
 
   // Initialiser la section covoiturage
-  initCovoiturage();
+  await initCovoiturage();
 
   // Ajouter un message de bienvenue dans la console
   console.log('🎉 Site de mariage Sarah & Antonin chargé avec succès !');
@@ -972,7 +940,7 @@ function initWebsite() {
 // ===== INITIALISATION =====
 
 // Attendre que le DOM soit chargé
-document.addEventListener('DOMContentLoaded', initWebsite);
+document.addEventListener('DOMContentLoaded', async () => { await initWebsite(); });
 
 // Gérer le rechargement de la page pour les navigateurs qui ne supportent pas DOMContentLoaded
 if (document.readyState === 'loading') {

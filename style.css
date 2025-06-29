@@ -187,9 +187,10 @@ p {
   text-decoration: none;
   color: var(--color-dark);
   font-weight: 500;
-  transition: var(--transition);
+  transition: color 0.2s, border-bottom 0.2s;
   padding: 0.8rem 1.2rem;
-  border-radius: 25px;
+  border-radius: 0;
+  border-bottom: 2px solid transparent;
   position: relative;
   overflow: hidden;
 }
@@ -209,16 +210,12 @@ p {
   left: 100%;
 }
 
-.nav-link:hover {
-  color: var(--color-rose-gold);
-  background-color: var(--color-pastel-green);
-  transform: translateY(-2px);
-}
-
+.nav-link:hover,
 .nav-link.active {
   color: var(--color-rose-gold);
-  background-color: var(--color-pastel-green);
-  box-shadow: var(--shadow-light);
+  border-bottom: 2px solid var(--color-rose-gold);
+  background: none;
+  text-decoration: none;
 }
 
 .hamburger {
@@ -635,7 +632,7 @@ p {
   border-radius: 20px;
   text-decoration: none;
   display: block;
-  transition: var(--transition);
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s, opacity 0.2s;
   box-shadow: var(--shadow-light);
   margin-bottom: var(--spacing-lg);
 }
@@ -1273,6 +1270,16 @@ p {
   .section {
     padding: var(--spacing-xl) 0;
   }
+
+  .sticky-next {
+    width: 90vw;
+    max-width: 350px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.05rem;
+    padding: 1rem 0;
+    border-radius: 18px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -1401,7 +1408,7 @@ p {
   text-decoration: none;
   font-weight: 600;
   font-size: 1.1rem;
-  transition: var(--transition);
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s, opacity 0.2s;
   box-shadow: var(--shadow-light);
   border: none;
   cursor: pointer;
@@ -1505,4 +1512,50 @@ p {
 .map-link::before {
   content: '📍';
   font-size: 1.1rem;
+}
+
+/* ===== BOUTON STICKY DISCRET ===== */
+.sticky-next {
+  position: fixed;
+  left: 50%;
+  bottom: 2vw;
+  transform: translateX(-50%);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+  opacity: 0.92;
+  background: rgba(168, 213, 186, 0.92);
+  color: var(--color-dark);
+  box-shadow: 0 2px 8px rgba(168, 213, 186, 0.10);
+  border-radius: 22px;
+  font-size: 1rem;
+  padding: 0.7rem 1.5rem;
+  border: none;
+  transition: opacity 0.2s, box-shadow 0.2s, background 0.2s, color 0.2s, transform 0.2s;
+  text-decoration: none;
+  min-width: 120px;
+  max-width: 90vw;
+}
+
+.sticky-next:hover {
+  opacity: 1;
+  background: rgba(168, 213, 186, 1);
+  color: var(--color-rose-gold);
+  box-shadow: 0 6px 18px rgba(168, 213, 186, 0.18);
+  transform: translateX(-50%) translateY(-2px) scale(1.04);
+}
+
+/* Pas de soulignement sur le bouton Google Photos */
+.galerie-link.no-underline,
+.galerie-link.no-underline:visited,
+.galerie-link.no-underline:hover {
+  text-decoration: none !important;
+}
+
+/* Amélioration hover général */
+.nav-button,
+.galerie-button {
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s, opacity 0.2s;
 }

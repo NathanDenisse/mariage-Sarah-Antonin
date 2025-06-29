@@ -323,6 +323,7 @@ function initMinimalNavBar() {
     const isOpen = navMenu.classList.toggle('open');
     hamburger.classList.toggle('open', isOpen);
     hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    document.body.classList.toggle('menu-open', isOpen);
     if (isOpen) navMenu.querySelector('.nav-link').focus();
   });
   // Fermer menu mobile au clic sur lien
@@ -331,6 +332,7 @@ function initMinimalNavBar() {
       navMenu.classList.remove('open');
       hamburger.classList.remove('open');
       hamburger.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('menu-open');
     });
   });
   // Fermer menu mobile avec Echap
@@ -339,6 +341,7 @@ function initMinimalNavBar() {
       navMenu.classList.remove('open');
       hamburger.classList.remove('open');
       hamburger.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('menu-open');
       hamburger.focus();
     }
   });

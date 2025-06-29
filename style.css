@@ -246,6 +246,8 @@ p {
     opacity: 1;
     transform: translateY(-100%);
     pointer-events: none;
+    overflow-y: auto;
+    max-height: 100vh;
   }
 
   .nav-menu.open {
@@ -314,6 +316,16 @@ p {
   .hamburger.open .bar:nth-child(3) {
     transform: translateY(-6px) rotate(-45deg);
   }
+
+  .nav-menu.open~.sticky-next {
+    display: none !important;
+  }
+}
+
+/* Fallback pour garantir la disparition du sticky sur overlay mobile */
+.nav-menu.open~.sticky-next,
+body.menu-open .sticky-next {
+  display: none !important;
 }
 
 /* ===== HERO SECTION ===== */

@@ -11,10 +11,45 @@ if (typeof window.supabase === 'undefined') {
 
 const supabase = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
 
+// Test de connectivité réseau
+async function testNetworkConnectivity() {
+  console.log('🌐 Test de connectivité réseau...');
+
+  try {
+    // Test avec une URL connue
+    const response = await fetch('https://httpbin.org/get', {
+      method: 'GET',
+      mode: 'cors'
+    });
+
+    if (response.ok) {
+      console.log('✅ Connectivité réseau OK');
+      return true;
+    } else {
+      console.error('❌ Problème de connectivité réseau');
+      return false;
+    }
+  } catch (err) {
+    console.error('❌ Erreur de connectivité réseau:', err);
+    return false;
+  }
+}
+
 // Test de connexion Supabase
 async function testSupabaseConnection() {
   if (!supabase) {
     console.error('❌ Client Supabase non initialisé');
+    return false;
+  }
+
+  console.log('🔧 Configuration Supabase:');
+  console.log('- URL:', SUPABASE_URL);
+  console.log('- Clé (début):', SUPABASE_KEY.substring(0, 20) + '...');
+
+  // Tester d'abord la connectivité réseau
+  const networkOk = await testNetworkConnectivity();
+  if (!networkOk) {
+    console.error('❌ Problème de connectivité réseau détecté');
     return false;
   }
 
@@ -24,6 +59,12 @@ async function testSupabaseConnection() {
 
     if (error) {
       console.error('❌ Erreur de connexion Supabase:', error);
+      console.error('Détails de l\'erreur:', {
+        message: error.message,
+        details: error.details,
+        hint: error.hint,
+        code: error.code
+      });
       return false;
     }
 
@@ -31,6 +72,9 @@ async function testSupabaseConnection() {
     return true;
   } catch (err) {
     console.error('❌ Erreur de connexion Supabase:', err);
+    console.error('Type d\'erreur:', err.name);
+    console.error('Message:', err.message);
+    console.error('Stack:', err.stack);
     return false;
   }
 }

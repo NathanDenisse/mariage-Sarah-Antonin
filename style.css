@@ -697,10 +697,6 @@ p {
   justify-content: center;
   gap: var(--spacing-sm);
   margin-top: var(--spacing-md);
-  background: rgba(255, 255, 255, 0.9);
-  padding: var(--spacing-sm);
-  border-radius: 20px;
-  box-shadow: var(--shadow-light);
   max-width: 400px;
   margin-left: auto;
   margin-right: auto;
@@ -709,10 +705,12 @@ p {
 .countdown-item {
   text-align: center;
   padding: var(--spacing-sm);
-  border-radius: 10px;
-  background: linear-gradient(135deg, var(--color-pastel-green), var(--color-rose-gold));
-  color: white;
-  min-width: 60px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-light);
+  border: 1px solid rgba(168, 213, 186, 0.2);
+  min-width: 70px;
   position: relative;
 }
 
@@ -728,16 +726,16 @@ p {
 
 .countdown-number {
   display: block;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-weight: 700;
-  color: white;
+  color: var(--color-pastel-green);
   font-family: var(--font-heading);
   margin-bottom: 2px;
 }
 
 .countdown-label {
-  font-size: 0.7rem;
-  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.8rem;
+  color: var(--color-gray);
   text-transform: uppercase;
   letter-spacing: 1px;
   font-weight: 500;
@@ -809,26 +807,49 @@ p {
 /* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 768px) {
 
-  /* Navigation mobile */
+  /* Navigation mobile améliorée */
   .nav-menu {
     position: fixed;
     left: -100%;
     top: 70px;
     flex-direction: column;
-    background-color: white;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(20px);
     width: 100%;
     text-align: center;
-    transition: 0.3s;
+    transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: var(--shadow-medium);
     padding: var(--spacing-lg) 0;
+    border-radius: 0 0 20px 20px;
   }
 
   .nav-menu.active {
     left: 0;
   }
 
+  .nav-menu li {
+    margin: var(--spacing-sm) 0;
+  }
+
+  .nav-link {
+    font-size: 1.2rem;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: 30px;
+    margin: 0 var(--spacing-sm);
+    display: block;
+  }
+
   .hamburger {
     display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    padding: var(--spacing-xs);
+    border-radius: 8px;
+    transition: var(--transition);
+  }
+
+  .hamburger:hover {
+    background: rgba(168, 213, 186, 0.1);
   }
 
   .hamburger.active .bar:nth-child(2) {
@@ -843,77 +864,292 @@ p {
     transform: translateY(-8px) rotate(-45deg);
   }
 
-  /* Hero */
-  .hero-title {
-    font-size: 2.5rem;
+  /* Hero amélioré */
+  .hero {
+    min-height: 100vh;
+    padding: 120px var(--spacing-sm) var(--spacing-xl);
   }
 
-  /* Timeline */
+  .hero-content {
+    padding: 0 var(--spacing-sm);
+  }
+
+  .hero-title {
+    font-size: 2.8rem;
+    line-height: 1.1;
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .hero-date {
+    font-size: 1.3rem;
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .hero-subtitle {
+    font-size: 1.1rem;
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .hero-photo {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto var(--spacing-lg);
+  }
+
+  .hero-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Compte à rebours amélioré */
+  .countdown-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-xs);
+    max-width: 250px;
+  }
+
+  .countdown-item {
+    padding: var(--spacing-xs);
+  }
+
+  .countdown-number {
+    font-size: 1.4rem;
+  }
+
+  .countdown-label {
+    font-size: 0.7rem;
+  }
+
+  /* Timeline améliorée */
+  .timeline {
+    position: relative;
+    padding: var(--spacing-lg) 0;
+  }
+
   .timeline::before {
-    left: 20px;
+    left: 30px;
+    width: 3px;
+    background: linear-gradient(to bottom, var(--color-pastel-green), var(--color-rose-gold));
   }
 
   .timeline-item {
     flex-direction: row !important;
+    margin-bottom: var(--spacing-lg);
+    padding-left: 60px;
+    position: relative;
   }
 
   .timeline-date {
-    margin-right: var(--spacing-md);
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: var(--color-pastel-green);
+    color: white;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    min-width: 60px;
+    text-align: center;
   }
 
   .timeline-content {
-    margin-left: 0;
-    max-width: none;
+    background: white;
+    padding: var(--spacing-md);
+    border-radius: 15px;
+    box-shadow: var(--shadow-light);
+    border-left: 4px solid var(--color-pastel-green);
   }
 
-  /* Programme */
+  .timeline-content h3 {
+    color: var(--color-pastel-green);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  /* Programme amélioré */
   .programme-grid {
     grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
   }
 
-  /* Infos */
+  .programme-day {
+    background: white;
+    border-radius: 20px;
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-light);
+    border: 1px solid rgba(168, 213, 186, 0.1);
+  }
+
+  .programme-day h3 {
+    color: var(--color-pastel-green);
+    border-bottom: 2px solid var(--color-pastel-green);
+    padding-bottom: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .event {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+    padding: var(--spacing-sm) 0;
+    border-bottom: 1px solid rgba(168, 213, 186, 0.1);
+  }
+
+  .event:last-child {
+    border-bottom: none;
+  }
+
+  .event-time {
+    background: var(--color-pastel-green);
+    color: white;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    min-width: 80px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  /* Infos améliorées */
   .infos-grid {
     grid-template-columns: 1fr;
+    gap: var(--spacing-md);
   }
 
-  /* Dress code */
+  .info-card {
+    background: white;
+    border-radius: 20px;
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-light);
+    border: 1px solid rgba(168, 213, 186, 0.1);
+    text-align: left;
+  }
+
+  .info-card h3 {
+    color: var(--color-pastel-green);
+    margin-bottom: var(--spacing-md);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+  }
+
+  /* Cagnotte améliorée */
+  .payment-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+
+  .payment-card {
+    background: white;
+    border-radius: 15px;
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-light);
+    border: 2px solid transparent;
+    transition: var(--transition);
+  }
+
+  .payment-card:hover {
+    border-color: var(--color-pastel-green);
+    transform: translateY(-5px);
+  }
+
+  .rib-card {
+    background: white;
+    border-radius: 15px;
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-light);
+    border: 1px solid rgba(168, 213, 186, 0.2);
+  }
+
+  /* Dress code amélioré */
   .dresscode-content {
     grid-template-columns: 1fr;
     gap: var(--spacing-lg);
   }
 
-  /* Compte à rebours */
-  .countdown-container {
-    flex-wrap: wrap;
+  .color-palette {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: var(--spacing-sm);
   }
 
-  .countdown-item {
-    min-width: 100px;
-    padding: var(--spacing-md);
+  .color-swatch {
+    aspect-ratio: 1;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-dark);
+    box-shadow: var(--shadow-light);
   }
 
-  .countdown-number {
-    font-size: 2rem;
+  /* FAQ améliorée */
+  .faq-item {
+    background: white;
+    border-radius: 15px;
+    margin-bottom: var(--spacing-md);
+    box-shadow: var(--shadow-light);
+    overflow: hidden;
   }
 
-  /* Typographie */
+  .faq-question {
+    padding: var(--spacing-lg);
+    cursor: pointer;
+    transition: var(--transition);
+  }
+
+  .faq-question:hover {
+    background: rgba(168, 213, 186, 0.05);
+  }
+
+  .faq-answer {
+    padding: 0 var(--spacing-lg) var(--spacing-lg);
+    color: var(--color-gray);
+  }
+
+  /* Boutons améliorés */
+  .nav-button {
+    width: 100%;
+    max-width: 300px;
+    padding: var(--spacing-md) var(--spacing-lg);
+    font-size: 1.1rem;
+  }
+
+  /* Typographie améliorée */
   h1 {
-    font-size: 2.5rem;
+    font-size: 2.8rem;
   }
 
   h2 {
-    font-size: 2rem;
+    font-size: 2.2rem;
   }
 
   h3 {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
+  }
+
+  p {
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  /* Container amélioré */
+  .container {
+    padding: 0 var(--spacing-md);
+  }
+
+  .section {
+    padding: var(--spacing-xl) 0;
   }
 }
 
 @media (max-width: 480px) {
   .container {
-    padding: 0 var(--spacing-xs);
+    padding: 0 var(--spacing-sm);
   }
 
   .section {
@@ -921,17 +1157,72 @@ p {
   }
 
   .hero-title {
-    font-size: 2rem;
+    font-size: 2.4rem;
+  }
+
+  .hero-date {
+    font-size: 1.2rem;
   }
 
   .countdown-container {
-    flex-direction: column;
-    align-items: center;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-xs);
+    max-width: 250px;
   }
 
   .countdown-item {
-    width: 100%;
-    max-width: 200px;
+    padding: var(--spacing-xs);
+  }
+
+  .countdown-number {
+    font-size: 1.4rem;
+  }
+
+  .countdown-label {
+    font-size: 0.7rem;
+  }
+
+  .timeline-item {
+    padding-left: 50px;
+  }
+
+  .timeline-date {
+    min-width: 50px;
+    font-size: 0.8rem;
+    padding: var(--spacing-xs);
+  }
+
+  .programme-day,
+  .info-card,
+  .payment-card,
+  .rib-card {
+    padding: var(--spacing-md);
+  }
+
+  .event {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .event-time {
+    align-self: flex-start;
+  }
+
+  .nav-button {
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: 1rem;
+  }
+
+  h1 {
+    font-size: 2.4rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  h3 {
+    font-size: 1.4rem;
   }
 }
 

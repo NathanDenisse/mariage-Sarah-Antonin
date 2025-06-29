@@ -1306,3 +1306,30 @@ p {
   padding-top: var(--spacing-lg);
   border-top: 1px solid var(--color-off-white);
 }
+
+/* ===== LIENS GOOGLE MAPS ===== */
+.map-link {
+  color: var(--color-pastel-green);
+  text-decoration: none;
+  font-weight: 500;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: 20px;
+  background: rgba(168, 213, 186, 0.1);
+  border: 1px solid transparent;
+}
+
+.map-link:hover {
+  background: rgba(168, 213, 186, 0.2);
+  border-color: var(--color-pastel-green);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-light);
+}
+
+.map-link::before {
+  content: '📍';
+  font-size: 1.1rem;
+}

@@ -310,7 +310,7 @@ function initStickySectionButton() {
   updateButton();
 }
 
-// NAVIGATION MINIMALISTE
+// NAVIGATION MOBILE REFAITE
 function initMinimalNavBar() {
   const hamburger = document.querySelector('.hamburger');
   const navMenu = document.querySelector('.nav-menu');
@@ -318,9 +318,10 @@ function initMinimalNavBar() {
   const navBar = document.querySelector('.navbar');
   const navHeight = navBar ? navBar.offsetHeight : 60;
 
-  // Hamburger mobile
+  // Hamburger mobile : toggle classe open
   hamburger.addEventListener('click', () => {
     const isOpen = navMenu.classList.toggle('open');
+    hamburger.classList.toggle('open', isOpen);
     hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
     if (isOpen) navMenu.querySelector('.nav-link').focus();
   });
@@ -328,8 +329,34 @@ function initMinimalNavBar() {
   navLinks.forEach(link => {
     link.addEventListener('click', () => {
       navMenu.classList.remove('open');
+      hamburger.classList.remove('open');
       hamburger.setAttribute('aria-expanded', 'false');
     });
+  });
+  // Fermer menu mobile avec Echap
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      navMenu.classList.remove('open');
+      hamburger.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+      hamburger.focus();
+    }
+  });
+  // Focus piégé dans le menu mobile
+  navMenu.addEventListener('keydown', (e) => {
+    if (!navMenu.classList.contains('open')) return;
+    const focusable = Array.from(navMenu.querySelectorAll('.nav-link'));
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (e.key === 'Tab') {
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
   });
   // Highlight actif + scroll smooth offset
   function getCurrentSection() {

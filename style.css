@@ -255,8 +255,8 @@ p {
 
   .nav-link {
     width: 100vw;
-    padding: 0.45rem 0;
-    font-size: 1.07rem;
+    padding: 0.28rem 0;
+    font-size: 1.03rem;
     border-bottom: 1px solid #f0f0f0;
     text-align: center;
     margin: 0;
@@ -316,6 +316,12 @@ p {
   }
 
   .hamburger.open {
+    display: none !important;
+  }
+
+  /* Masquer les boutons sticky/flottants quand menu ouvert */
+  .nav-menu.open~.nav-button,
+  .nav-menu.open~.sticky-next {
     display: none !important;
   }
 }

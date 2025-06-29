@@ -343,15 +343,176 @@
       <h2 class="section-title">Covoiturage</h2>
       <div class="covoiturage-content"
         style="max-width: 700px; margin: 0 auto; background: white; border-radius: 18px; box-shadow: 0 2px 12px rgba(168,213,186,0.08); padding: 2.5rem 1.5rem; text-align: center;">
+
         <p style="font-size:1.1rem; color:var(--color-gray); margin-bottom:2rem;">Vous souhaitez proposer ou rechercher
-          un covoiturage ? Remplissez ou consultez le tableau ci-dessous. Merci de préciser le nombre de places, les
-          horaires, les points de départ/arrivée et vos coordonnées.</p>
-        <iframe
-          src="https://docs.google.com/spreadsheets/d/15Po5CPWr-xDaGiUpp7gMgkQDcEsTRGf8sRVIB9xccM4/edit?usp=sharing"
-          width="100%" height="420"
-          style="border-radius:12px; border:1px solid #e8b4b8; box-shadow:0 2px 8px rgba(168,213,186,0.08);"></iframe>
-        <div style="font-size:0.95rem; color:var(--color-gray); margin-top:1rem;">(Tableau collaboratif Google Sheets -
-          modifiable par tous)</div>
+          un covoiturage ? Utilisez les options ci-dessous pour organiser vos trajets ensemble !</p>
+
+        <!-- Boutons d'action principaux -->
+        <div class="covoiturage-actions"
+          style="display: flex; gap: 1rem; justify-content: center; margin-bottom: 2rem; flex-wrap: wrap;">
+          <button id="btn-proposer" class="covoiturage-btn"
+            style="background: linear-gradient(135deg, var(--color-pastel-green), #8bc34a); color: white; border: none; padding: 1rem 2rem; border-radius: 12px; font-size: 1.1rem; font-weight: 600; cursor: pointer; box-shadow: 0 2px 8px rgba(168,213,186,0.15); transition: 0.2s;">
+            🚗 Proposer un trajet
+          </button>
+          <button id="btn-rechercher" class="covoiturage-btn"
+            style="background: linear-gradient(135deg, #ff9800, #f57c00); color: white; border: none; padding: 1rem 2rem; border-radius: 12px; font-size: 1.1rem; font-weight: 600; cursor: pointer; box-shadow: 0 2px 8px rgba(255,152,0,0.15); transition: 0.2s;">
+            🔍 Rechercher un trajet
+          </button>
+        </div>
+
+        <!-- Formulaire pour proposer un trajet -->
+        <div id="form-proposer" class="covoiturage-form"
+          style="display: none; text-align: left; background: #f8f9fa; border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem;">
+          <h3 style="color: var(--color-pastel-green); margin-bottom: 1rem;">🚗 Proposer un trajet</h3>
+          <form id="covoiturage-form">
+            <div style="display: grid; gap: 1rem; grid-template-columns: 1fr 1fr;">
+              <div>
+                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--color-gray);">Votre
+                  nom *</label>
+                <input type="text" id="nom" required
+                  style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem;">
+              </div>
+              <div>
+                <label
+                  style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--color-gray);">Téléphone
+                  *</label>
+                <input type="tel" id="telephone" required
+                  style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem;">
+              </div>
+            </div>
+            <div style="display: grid; gap: 1rem; grid-template-columns: 1fr 1fr;">
+              <div>
+                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--color-gray);">Ville
+                  de départ *</label>
+                <input type="text" id="depart" required
+                  style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem;">
+              </div>
+              <div>
+                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--color-gray);">Ville
+                  d'arrivée *</label>
+                <input type="text" id="arrivee" required
+                  style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem;">
+              </div>
+            </div>
+            <div style="display: grid; gap: 1rem; grid-template-columns: 1fr 1fr;">
+              <div>
+                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--color-gray);">Date
+                  *</label>
+                <select id="date" required
+                  style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem;">
+                  <option value="">Choisir une date</option>
+                  <option value="22-08-2025">Vendredi 22 août 2025</option>
+                  <option value="23-08-2025">Samedi 23 août 2025</option>
+                  <option value="24-08-2025">Dimanche 24 août 2025</option>
+                </select>
+              </div>
+              <div>
+                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--color-gray);">Heure
+                  de départ *</label>
+                <input type="time" id="heure" required
+                  style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem;">
+              </div>
+            </div>
+            <div>
+              <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--color-gray);">Places
+                disponibles *</label>
+              <input type="number" id="places" min="1" max="8" required
+                style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem;">
+            </div>
+            <div>
+              <label
+                style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--color-gray);">Commentaires
+                (optionnel)</label>
+              <textarea id="commentaires" rows="3" placeholder="Précisions sur le point de rdv, bagages, etc."
+                style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; resize: vertical;"></textarea>
+            </div>
+            <div style="text-align: center; margin-top: 1.5rem;">
+              <button type="submit"
+                style="background: linear-gradient(135deg, var(--color-pastel-green), #8bc34a); color: white; border: none; padding: 1rem 2rem; border-radius: 12px; font-size: 1.1rem; font-weight: 600; cursor: pointer; box-shadow: 0 2px 8px rgba(168,213,186,0.15); transition: 0.2s;">
+                ✅ Envoyer ma proposition
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Liste des trajets disponibles -->
+        <div id="liste-trajets" class="covoiturage-liste" style="display: none; text-align: left;">
+          <h3 style="color: var(--color-pastel-green); margin-bottom: 1rem;">🔍 Trajets disponibles</h3>
+
+          <!-- Filtres -->
+          <div class="covoiturage-filtres" style="margin-bottom: 1.5rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+            <select id="filtre-date"
+              style="padding: 0.5rem; border: 1px solid #ddd; border-radius: 6px; font-size: 0.9rem;">
+              <option value="">Toutes les dates</option>
+              <option value="22-08-2025">Vendredi 22 août</option>
+              <option value="23-08-2025">Samedi 23 août</option>
+              <option value="24-08-2025">Dimanche 24 août</option>
+            </select>
+            <select id="filtre-direction"
+              style="padding: 0.5rem; border: 1px solid #ddd; border-radius: 6px; font-size: 0.9rem;">
+              <option value="">Toutes les directions</option>
+              <option value="aller">Aller</option>
+              <option value="retour">Retour</option>
+            </select>
+            <select id="filtre-statut"
+              style="padding: 0.5rem; border: 1px solid #ddd; border-radius: 6px; font-size: 0.9rem;">
+              <option value="">Tous les statuts</option>
+              <option value="disponible">Disponible</option>
+              <option value="complet">Complet</option>
+            </select>
+            <button id="btn-rafraichir"
+              style="background: var(--color-pastel-green); color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; font-size: 0.9rem; cursor: pointer;">
+              🔄 Actualiser
+            </button>
+          </div>
+
+          <!-- Tableau des trajets -->
+          <div class="covoiturage-tableau"
+            style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(168,213,186,0.08);">
+            <div class="tableau-header"
+              style="background: var(--color-pastel-green); color: white; padding: 1rem; font-weight: 600; display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1.2fr; gap: 1rem; align-items: center;">
+              <div>👤 Conducteur</div>
+              <div>🚗 Trajet</div>
+              <div>📅 Date</div>
+              <div>⏰ Heure</div>
+              <div>💺 Places</div>
+              <div>⚙️ Actions</div>
+            </div>
+            <div id="trajets-container" style="max-height: 400px; overflow-y: auto;">
+              <!-- Les trajets seront ajoutés ici dynamiquement -->
+            </div>
+          </div>
+
+          <!-- Statistiques -->
+          <div class="covoiturage-stats"
+            style="margin-top: 1rem; display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;">
+            <div class="stat-item"
+              style="background: #e8f5e8; padding: 0.8rem 1.2rem; border-radius: 8px; text-align: center; min-width: 120px;">
+              <div style="font-size: 1.5rem; font-weight: 600; color: var(--color-pastel-green);" id="total-trajets">0
+              </div>
+              <div style="font-size: 0.9rem; color: var(--color-gray);">Trajets</div>
+            </div>
+            <div class="stat-item"
+              style="background: #fff3e0; padding: 0.8rem 1.2rem; border-radius: 8px; text-align: center; min-width: 120px;">
+              <div style="font-size: 1.5rem; font-weight: 600; color: #ff9800;" id="total-places">0</div>
+              <div style="font-size: 0.9rem; color: var(--color-gray);">Places</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Message d'information -->
+        <div style="background: #e8f5e8; border-radius: 12px; padding: 1rem; margin-top: 1.5rem; text-align: left;">
+          <h4 style="color: var(--color-pastel-green); margin-bottom: 0.5rem;">💡 Comment ça marche ?</h4>
+          <ul style="color: var(--color-gray); font-size: 0.95rem; margin: 0; padding-left: 1.2rem;">
+            <li><strong>Proposer un trajet</strong> : Remplissez le formulaire ci-dessus</li>
+            <li><strong>Rechercher un trajet</strong> : Consultez les propositions disponibles</li>
+            <li><strong>Modifier un trajet</strong> : Cliquez sur "Modifier" pour ajuster les places ou marquer comme
+              complet</li>
+            <li><strong>Contact direct</strong> : Appelez directement le conducteur ou utilisez le bouton "Nous
+              contacter"</li>
+          </ul>
+        </div>
+
       </div>
     </div>
   </section>

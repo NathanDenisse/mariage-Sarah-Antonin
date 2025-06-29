@@ -402,6 +402,526 @@ function initMinimalNavBar() {
 }
 
 /**
+ * Initialise la section covoiturage
+ */
+function initCovoiturage() {
+  const btnProposer = document.getElementById('btn-proposer');
+  const btnRechercher = document.getElementById('btn-rechercher');
+  const formProposer = document.getElementById('form-proposer');
+  const listeTrajets = document.getElementById('liste-trajets');
+  const covoiturageForm = document.getElementById('covoiturage-form');
+  const btnRafraichir = document.getElementById('btn-rafraichir');
+  const filtreDate = document.getElementById('filtre-date');
+  const filtreDirection = document.getElementById('filtre-direction');
+  const filtreStatut = document.getElementById('filtre-statut');
+
+  // Gestion des boutons d'action
+  if (btnProposer) {
+    btnProposer.addEventListener('click', function () {
+      formProposer.style.display = 'block';
+      listeTrajets.style.display = 'none';
+      btnProposer.style.opacity = '0.7';
+      btnRechercher.style.opacity = '1';
+    });
+  }
+
+  if (btnRechercher) {
+    btnRechercher.addEventListener('click', function () {
+      listeTrajets.style.display = 'block';
+      formProposer.style.display = 'none';
+      btnRechercher.style.opacity = '0.7';
+      btnProposer.style.opacity = '1';
+      afficherTrajets();
+    });
+  }
+
+  // Gestion du formulaire
+  if (covoiturageForm) {
+    covoiturageForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      envoyerPropositionCovoiturage();
+    });
+  }
+
+  // Gestion des filtres et actualisation
+  if (btnRafraichir) {
+    btnRafraichir.addEventListener('click', function () {
+      afficherTrajets();
+      afficherMessageConfirmation('Tableau actualisé !');
+    });
+  }
+
+  if (filtreDate) {
+    filtreDate.addEventListener('change', afficherTrajets);
+  }
+
+  if (filtreDirection) {
+    filtreDirection.addEventListener('change', afficherTrajets);
+  }
+
+  if (filtreStatut) {
+    filtreStatut.addEventListener('change', afficherTrajets);
+  }
+
+  // Effets de hover sur les boutons
+  const covoiturageBtns = document.querySelectorAll('.covoiturage-btn');
+  covoiturageBtns.forEach(btn => {
+    btn.addEventListener('mouseenter', function () {
+      this.style.transform = 'translateY(-2px)';
+      this.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+    });
+
+    btn.addEventListener('mouseleave', function () {
+      this.style.transform = 'translateY(0)';
+      this.style.boxShadow = this.style.boxShadow.replace('0 4px 12px', '0 2px 8px');
+    });
+  });
+
+  // Charger les trajets au démarrage
+  chargerTrajetsExemples();
+}
+
+/**
+ * Envoie la proposition de covoiturage
+ */
+function envoyerPropositionCovoiturage() {
+  const formData = {
+    id: Date.now(), // ID unique
+    nom: document.getElementById('nom').value,
+    telephone: document.getElementById('telephone').value,
+    depart: document.getElementById('depart').value,
+    arrivee: document.getElementById('arrivee').value,
+    date: document.getElementById('date').value,
+    heure: document.getElementById('heure').value,
+    places: parseInt(document.getElementById('places').value),
+    commentaires: document.getElementById('commentaires').value,
+    timestamp: new Date().toISOString(),
+    statut: 'disponible' // Nouveau champ pour le statut
+  };
+
+  // Sauvegarder dans le stockage local
+  sauvegarderTrajet(formData);
+
+  // Créer le message pour l'email (pour backup)
+  const message = `
+Bonjour Sarah & Antonin,
+
+Nouvelle proposition de covoiturage :
+
+👤 Nom : ${formData.nom}
+📞 Téléphone : ${formData.telephone}
+🚗 Trajet : ${formData.depart} → ${formData.arrivee}
+📅 Date : ${formData.date}
+⏰ Heure : ${formData.heure}
+💺 Places : ${formData.places}
+💬 Commentaires : ${formData.commentaires || 'Aucun'}
+
+Merci !
+  `.trim();
+
+  // Ouvrir l'email avec les données pré-remplies
+  const emailSubject = encodeURIComponent('Nouvelle proposition de covoiturage - Mariage Sarah & Antonin');
+  const emailBody = encodeURIComponent(message);
+  const emailLink = `mailto:sarah.denisse@gmail.com?subject=${emailSubject}&body=${emailBody}`;
+
+  window.open(emailLink);
+
+  // Réinitialiser le formulaire
+  document.getElementById('covoiturage-form').reset();
+
+  // Afficher un message de confirmation
+  afficherMessageConfirmation('Votre proposition a été ajoutée au tableau ! Nous vous recontacterons rapidement.');
+
+  // Actualiser l'affichage si la liste est visible
+  if (document.getElementById('liste-trajets').style.display !== 'none') {
+    afficherTrajets();
+  }
+}
+
+/**
+ * Sauvegarde un trajet dans le stockage local
+ */
+function sauvegarderTrajet(trajet) {
+  let trajets = JSON.parse(localStorage.getItem('covoiturage_trajets') || '[]');
+  trajets.push(trajet);
+  localStorage.setItem('covoiturage_trajets', JSON.stringify(trajets));
+}
+
+/**
+ * Met à jour un trajet existant
+ */
+function mettreAJourTrajet(trajetModifie) {
+  let trajets = JSON.parse(localStorage.getItem('covoiturage_trajets') || '[]');
+  const index = trajets.findIndex(t => t.id === trajetModifie.id);
+
+  if (index !== -1) {
+    trajets[index] = { ...trajets[index], ...trajetModifie };
+    localStorage.setItem('covoiturage_trajets', JSON.stringify(trajets));
+    return true;
+  }
+  return false;
+}
+
+/**
+ * Supprime un trajet
+ */
+function supprimerTrajet(trajetId) {
+  let trajets = JSON.parse(localStorage.getItem('covoiturage_trajets') || '[]');
+  trajets = trajets.filter(t => t.id !== trajetId);
+  localStorage.setItem('covoiturage_trajets', JSON.stringify(trajets));
+}
+
+/**
+ * Récupère tous les trajets du stockage local
+ */
+function recupererTrajets() {
+  return JSON.parse(localStorage.getItem('covoiturage_trajets') || '[]');
+}
+
+/**
+ * Charge des exemples de trajets au premier démarrage
+ */
+function chargerTrajetsExemples() {
+  const trajets = recupererTrajets();
+  if (trajets.length === 0) {
+    const trajetsExemples = [
+      {
+        id: 1,
+        nom: 'Marie D.',
+        telephone: '06 12 34 56 78',
+        depart: 'Nice',
+        arrivee: 'Domaine les Aigas',
+        date: '23-08-2025',
+        heure: '13h30',
+        places: 3,
+        commentaires: 'Départ gare Nice-Ville, retour possible le dimanche',
+        timestamp: new Date().toISOString(),
+        statut: 'disponible'
+      },
+      {
+        id: 2,
+        nom: 'Thomas L.',
+        telephone: '06 98 76 54 32',
+        depart: 'Marseille',
+        arrivee: 'Domaine les Aigas',
+        date: '22-08-2025',
+        heure: '16h00',
+        places: 2,
+        commentaires: 'Passage par Aix-en-Provence possible',
+        timestamp: new Date().toISOString(),
+        statut: 'disponible'
+      },
+      {
+        id: 3,
+        nom: 'Sophie M.',
+        telephone: '06 55 44 33 22',
+        depart: 'Domaine les Aigas',
+        arrivee: 'Nice',
+        date: '24-08-2025',
+        heure: '14h00',
+        places: 4,
+        commentaires: 'Retour vers Nice après le brunch',
+        timestamp: new Date().toISOString(),
+        statut: 'disponible'
+      }
+    ];
+    localStorage.setItem('covoiturage_trajets', JSON.stringify(trajetsExemples));
+  }
+}
+
+/**
+ * Affiche les trajets avec filtres
+ */
+function afficherTrajets() {
+  const container = document.getElementById('trajets-container');
+  const filtreDate = document.getElementById('filtre-date');
+  const filtreDirection = document.getElementById('filtre-direction');
+  const filtreStatut = document.getElementById('filtre-statut');
+
+  if (!container) return;
+
+  let trajets = recupererTrajets();
+
+  // Appliquer les filtres
+  if (filtreDate && filtreDate.value) {
+    trajets = trajets.filter(trajet => trajet.date === filtreDate.value);
+  }
+
+  if (filtreDirection && filtreDirection.value) {
+    if (filtreDirection.value === 'aller') {
+      trajets = trajets.filter(trajet => trajet.arrivee.includes('Domaine les Aigas'));
+    } else if (filtreDirection.value === 'retour') {
+      trajets = trajets.filter(trajet => trajet.depart.includes('Domaine les Aigas'));
+    }
+  }
+
+  if (filtreStatut && filtreStatut.value) {
+    trajets = trajets.filter(trajet => trajet.statut === filtreStatut.value);
+  }
+
+  // Trier par date et heure
+  trajets.sort((a, b) => {
+    if (a.date !== b.date) return a.date.localeCompare(b.date);
+    return a.heure.localeCompare(b.heure);
+  });
+
+  container.innerHTML = '';
+
+  if (trajets.length === 0) {
+    container.innerHTML = `
+      <div style="text-align: center; padding: 2rem; color: var(--color-gray);">
+        <p style="font-size: 1.1rem; margin-bottom: 1rem;">Aucun trajet disponible</p>
+        <p>N'hésitez pas à proposer votre trajet !</p>
+      </div>
+    `;
+  } else {
+    trajets.forEach(trajet => {
+      const trajetElement = document.createElement('div');
+      trajetElement.style.cssText = `
+        padding: 1rem;
+        border-bottom: 1px solid #eee;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1.2fr;
+        gap: 1rem;
+        align-items: center;
+        transition: background-color 0.2s ease;
+        ${trajet.statut === 'complet' ? 'opacity: 0.6; background-color: #f5f5f5;' : ''}
+      `;
+
+      trajetElement.addEventListener('mouseenter', function () {
+        if (trajet.statut !== 'complet') {
+          this.style.backgroundColor = '#f8f9fa';
+        }
+      });
+
+      trajetElement.addEventListener('mouseleave', function () {
+        if (trajet.statut !== 'complet') {
+          this.style.backgroundColor = 'transparent';
+        }
+      });
+
+      const direction = trajet.arrivee.includes('Domaine les Aigas') ? 'aller' : 'retour';
+      const directionIcon = direction === 'aller' ? '➡️' : '⬅️';
+      const statutBadge = trajet.statut === 'complet' ? '<span style="background: #f44336; color: white; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.8rem; margin-left: 0.5rem;">COMPLET</span>' : '';
+
+      trajetElement.innerHTML = `
+        <div>
+          <strong style="color: var(--color-pastel-green);">${trajet.nom}</strong>
+          <div style="font-size: 0.9rem; color: var(--color-gray);">${trajet.telephone}</div>
+        </div>
+        <div>
+          <div style="font-weight: 600;">${directionIcon} ${trajet.depart} → ${trajet.arrivee}</div>
+          ${trajet.commentaires ? `<div style="font-size: 0.9rem; color: var(--color-gray); font-style: italic;">${trajet.commentaires}</div>` : ''}
+        </div>
+        <div>
+          <div style="font-weight: 600;">${trajet.date}</div>
+        </div>
+        <div>
+          <div style="font-size: 0.9rem; color: var(--color-gray);">${trajet.heure}</div>
+        </div>
+        <div>
+          <span style="background: ${trajet.statut === 'complet' ? '#f44336' : 'var(--color-pastel-green)'}; color: white; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.9rem; font-weight: 600;">${trajet.places} place${trajet.places > 1 ? 's' : ''}</span>
+          ${statutBadge}
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 0.4rem;">
+          <a href="tel:${trajet.telephone.replace(/\s/g, '')}" style="background: var(--color-pastel-green); color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 6px; font-weight: 600; font-size: 0.9rem; display: inline-block; margin-bottom: 0.3rem; text-align: center;">
+            📞 Appeler
+          </a>
+          <button onclick="modifierTrajet(${trajet.id})" style="background: #ff9800; color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; font-weight: 600; font-size: 0.9rem; cursor: pointer; display: block; width: 100%; margin-bottom: 0.2rem;">
+            ✏️ Modifier
+          </button>
+          <button onclick="supprimerTrajetAvecConfirmation(${trajet.id})" style="background: #f44336; color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; font-weight: 600; font-size: 0.9rem; cursor: pointer; display: block; width: 100%;">
+            🗑️ Supprimer
+          </button>
+        </div>
+      `;
+
+      container.appendChild(trajetElement);
+    });
+  }
+
+  // Mettre à jour les statistiques
+  mettreAJourStatistiques();
+}
+
+function supprimerTrajetAvecConfirmation(trajetId) {
+  if (confirm('Voulez-vous vraiment supprimer ce trajet ?')) {
+    supprimerTrajet(trajetId);
+    afficherTrajets();
+    afficherMessageConfirmation('Trajet supprimé.');
+  }
+}
+
+/**
+ * Ouvre la modal de modification d'un trajet
+ */
+function modifierTrajet(trajetId) {
+  const trajets = recupererTrajets();
+  const trajet = trajets.find(t => t.id === trajetId);
+
+  if (!trajet) return;
+
+  // Créer la modal de modification
+  const modal = document.createElement('div');
+  modal.style.cssText = `
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  `;
+
+  modal.innerHTML = `
+    <div style="background: white; border-radius: 12px; padding: 2rem; max-width: 500px; width: 90%; max-height: 90vh; overflow-y: auto; position: relative;">
+      <button onclick="fermerModal()" style="position: absolute; top: 1rem; right: 1rem; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #666; padding: 0.5rem; border-radius: 50%; transition: background-color 0.2s ease;">
+        ✕
+      </button>
+      <h3 style="color: var(--color-pastel-green); margin-bottom: 1.5rem; padding-right: 2rem;">✏️ Modifier le trajet de ${trajet.nom}</h3>
+      
+      <div style="margin-bottom: 1rem;">
+        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--color-gray);">Nombre de places disponibles</label>
+        <input type="number" id="places-modif" value="${trajet.places}" min="0" max="8" style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem;">
+      </div>
+      
+      <div style="margin-bottom: 1.5rem;">
+        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--color-gray);">Statut</label>
+        <select id="statut-modif" style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem;">
+          <option value="disponible" ${trajet.statut === 'disponible' ? 'selected' : ''}>Disponible</option>
+          <option value="complet" ${trajet.statut === 'complet' ? 'selected' : ''}>Complet</option>
+        </select>
+      </div>
+      
+      <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+        <button onclick="fermerModal()" style="background: #6c757d; color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 8px; font-weight: 600; cursor: pointer;">
+          Annuler
+        </button>
+        <button onclick="sauvegarderModification(${trajetId})" style="background: var(--color-pastel-green); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 8px; font-weight: 600; cursor: pointer;">
+          Sauvegarder
+        </button>
+      </div>
+    </div>
+  `;
+
+  // Ajouter effet hover sur la croix
+  const croix = modal.querySelector('button');
+  croix.addEventListener('mouseenter', function () {
+    this.style.backgroundColor = '#f0f0f0';
+  });
+
+  croix.addEventListener('mouseleave', function () {
+    this.style.backgroundColor = 'transparent';
+  });
+
+  document.body.appendChild(modal);
+}
+
+/**
+ * Sauvegarde les modifications d'un trajet
+ */
+function sauvegarderModification(trajetId) {
+  const places = parseInt(document.getElementById('places-modif').value);
+  const statut = document.getElementById('statut-modif').value;
+
+  const modification = {
+    id: trajetId,
+    places: places,
+    statut: statut
+  };
+
+  if (mettreAJourTrajet(modification)) {
+    afficherMessageConfirmation('Trajet modifié avec succès !');
+    afficherTrajets();
+  } else {
+    afficherMessageConfirmation('Erreur lors de la modification', 'error');
+  }
+
+  fermerModal();
+}
+
+/**
+ * Ferme la modal
+ */
+function fermerModal() {
+  const modal = document.querySelector('div[style*="position: fixed"]');
+  if (modal) {
+    document.body.removeChild(modal);
+  }
+}
+
+/**
+ * Met à jour les statistiques
+ */
+function mettreAJourStatistiques() {
+  const trajets = recupererTrajets();
+  const totalTrajets = document.getElementById('total-trajets');
+  const totalPlaces = document.getElementById('total-places');
+
+  if (totalTrajets) totalTrajets.textContent = trajets.length;
+  if (totalPlaces) totalPlaces.textContent = trajets.reduce((sum, t) => sum + t.places, 0);
+}
+
+/**
+ * Affiche un message de confirmation
+ */
+function afficherMessageConfirmation(message, type = 'success') {
+  // Créer un élément de notification
+  const notification = document.createElement('div');
+  const backgroundColor = type === 'error' ? 'linear-gradient(135deg, #f44336, #d32f2f)' : 'linear-gradient(135deg, var(--color-pastel-green), #8bc34a)';
+
+  notification.style.cssText = `
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: ${backgroundColor};
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    z-index: 1000;
+    font-weight: 600;
+    max-width: 300px;
+    animation: slideIn 0.3s ease-out;
+  `;
+  notification.textContent = message;
+
+  // Ajouter l'animation CSS
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes slideIn {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+  `;
+  document.head.appendChild(style);
+
+  document.body.appendChild(notification);
+
+  // Supprimer la notification après 5 secondes
+  setTimeout(() => {
+    notification.style.animation = 'slideOut 0.3s ease-in';
+    notification.style.transform = 'translateX(100%)';
+    notification.style.opacity = '0';
+    setTimeout(() => {
+      if (document.body.contains(notification)) {
+        document.body.removeChild(notification);
+      }
+    }, 300);
+  }, 5000);
+}
+
+/**
+ * Affiche des exemples de trajets disponibles (fonction legacy)
+ */
+function afficherTrajetsExemples() {
+  afficherTrajets();
+}
+
+/**
  * Initialise toutes les fonctionnalités du site
  */
 function initWebsite() {
@@ -435,6 +955,9 @@ function initWebsite() {
 
   // Initialiser la navigation smooth
   initMinimalNavBar();
+
+  // Initialiser la section covoiturage
+  initCovoiturage();
 
   // Ajouter un message de bienvenue dans la console
   console.log('🎉 Site de mariage Sarah & Antonin chargé avec succès !');

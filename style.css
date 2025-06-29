@@ -1623,3 +1623,19 @@ p {
 .galerie-button {
   transition: background 0.2s, color 0.2s, box-shadow 0.2s, opacity 0.2s;
 }
+
+/* Badge pour les mentions du programme */
+.event-badge {
+  display: inline-block;
+  background: linear-gradient(90deg, var(--color-pastel-green) 60%, var(--color-rose-gold) 100%);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.97rem;
+  border-radius: 14px;
+  padding: 0.18em 0.85em;
+  margin-right: 0.4em;
+  margin-bottom: 0.1em;
+  letter-spacing: 0.2px;
+  box-shadow: 0 1px 4px rgba(168, 213, 186, 0.10);
+  vertical-align: middle;
+}

@@ -1,7 +1,39 @@
 // ===== CONFIGURATION SUPABASE =====
 const SUPABASE_URL = 'https://leokaeqifxrtoudfuhb.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imxlb2thZXFpZnhydG9vdWRmdWhiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTEyMzIwNDEsImV4cCI6MjA2NjgwODA0MX0.zQKNH-CSifGGKKaQKfoc_VUx1Fnu_eumNq0jpU_IOlI';
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+// Vérifier que la librairie Supabase est chargée
+if (typeof window.supabase === 'undefined') {
+  console.error('❌ Librairie Supabase non chargée !');
+} else {
+  console.log('✅ Librairie Supabase chargée');
+}
+
+const supabase = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
+
+// Test de connexion Supabase
+async function testSupabaseConnection() {
+  if (!supabase) {
+    console.error('❌ Client Supabase non initialisé');
+    return false;
+  }
+
+  try {
+    console.log('🔍 Test de connexion Supabase...');
+    const { data, error } = await supabase.from('covoiturage').select('count').limit(1);
+
+    if (error) {
+      console.error('❌ Erreur de connexion Supabase:', error);
+      return false;
+    }
+
+    console.log('✅ Connexion Supabase réussie');
+    return true;
+  } catch (err) {
+    console.error('❌ Erreur de connexion Supabase:', err);
+    return false;
+  }
+}
 
 // ===== VARIABLES GLOBALES =====
 const weddingDate = new Date('August 23, 2025 15:00:00').getTime();
@@ -410,6 +442,18 @@ function initMinimalNavBar() {
  * Initialise la section covoiturage
  */
 async function initCovoiturage() {
+  console.log('=== INITIALISATION COVOITURAGE ===');
+
+  // Tester la connexion Supabase
+  const supabaseOk = await testSupabaseConnection();
+  if (!supabaseOk) {
+    console.error('❌ Impossible d\'initialiser le covoiturage : problème de connexion Supabase');
+    return;
+  }
+
+  // Attendre un peu que le DOM soit complètement chargé
+  await new Promise(resolve => setTimeout(resolve, 100));
+
   const btnProposer = document.getElementById('btn-proposer');
   const btnRechercher = document.getElementById('btn-rechercher');
   const formProposer = document.getElementById('form-proposer');
@@ -420,43 +464,48 @@ async function initCovoiturage() {
   const filtreDirection = document.getElementById('filtre-direction');
   const filtreStatut = document.getElementById('filtre-statut');
 
-  console.log('initCovoiturage appelé');
-  console.log('btnProposer:', btnProposer);
-  console.log('btnRechercher:', btnRechercher);
+  console.log('Éléments trouvés:');
+  console.log('- btnProposer:', btnProposer ? 'OK' : 'MANQUANT');
+  console.log('- btnRechercher:', btnRechercher ? 'OK' : 'MANQUANT');
+  console.log('- formProposer:', formProposer ? 'OK' : 'MANQUANT');
+  console.log('- listeTrajets:', listeTrajets ? 'OK' : 'MANQUANT');
+  console.log('- covoiturageForm:', covoiturageForm ? 'OK' : 'MANQUANT');
+
+  // Vérifier que tous les éléments nécessaires sont présents
+  if (!btnProposer || !btnRechercher || !formProposer || !listeTrajets || !covoiturageForm) {
+    console.error('❌ Éléments manquants pour le covoiturage');
+    return;
+  }
 
   // Gestion des boutons d'action
-  if (btnProposer) {
-    btnProposer.addEventListener('click', function () {
-      formProposer.style.display = 'block';
-      listeTrajets.style.display = 'none';
-      btnProposer.style.opacity = '0.7';
-      btnRechercher.style.opacity = '1';
-      console.log('Bouton Proposer cliqué');
-    });
-  }
+  btnProposer.addEventListener('click', function () {
+    console.log('🚗 Bouton Proposer cliqué');
+    formProposer.style.display = 'block';
+    listeTrajets.style.display = 'none';
+    btnProposer.style.opacity = '0.7';
+    btnRechercher.style.opacity = '1';
+  });
 
-  if (btnRechercher) {
-    btnRechercher.addEventListener('click', function () {
-      listeTrajets.style.display = 'block';
-      formProposer.style.display = 'none';
-      btnRechercher.style.opacity = '0.7';
-      btnProposer.style.opacity = '1';
-      afficherTrajets();
-      console.log('Bouton Rechercher cliqué');
-    });
-  }
+  btnRechercher.addEventListener('click', function () {
+    console.log('🔍 Bouton Rechercher cliqué');
+    listeTrajets.style.display = 'block';
+    formProposer.style.display = 'none';
+    btnRechercher.style.opacity = '0.7';
+    btnProposer.style.opacity = '1';
+    afficherTrajets();
+  });
 
   // Gestion du formulaire
-  if (covoiturageForm) {
-    covoiturageForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-      envoyerPropositionCovoiturage();
-    });
-  }
+  covoiturageForm.addEventListener('submit', function (e) {
+    console.log('📝 Formulaire soumis');
+    e.preventDefault();
+    envoyerPropositionCovoiturage();
+  });
 
   // Gestion des filtres et actualisation
   if (btnRafraichir) {
     btnRafraichir.addEventListener('click', function () {
+      console.log('🔄 Bouton Actualiser cliqué');
       afficherTrajets();
       afficherMessageConfirmation('Tableau actualisé !');
     });
@@ -487,6 +536,8 @@ async function initCovoiturage() {
       this.style.boxShadow = this.style.boxShadow.replace('0 4px 12px', '0 2px 8px');
     });
   });
+
+  console.log('✅ Initialisation covoiturage terminée');
 
   // Charger les trajets au démarrage
   await afficherTrajets();
@@ -567,16 +618,22 @@ async function supprimerTrajet(trajetId) {
  * Récupère tous les trajets depuis Supabase
  */
 async function recupererTrajets() {
-  const { data, error } = await supabase
-    .from('covoiturage')
-    .select('*')
-    .order('date', { ascending: true })
-    .order('heure', { ascending: true });
-  if (error) {
-    console.error('Erreur chargement covoiturage:', error);
+  try {
+    const { data, error } = await supabase
+      .from('covoiturage')
+      .select('*')
+      .order('date', { ascending: true })
+      .order('heure', { ascending: true });
+
+    if (error) {
+      console.error('Erreur chargement covoiturage:', error);
+      return [];
+    }
+    return data || [];
+  } catch (err) {
+    console.error('Erreur de connexion Supabase:', err);
     return [];
   }
-  return data || [];
 }
 
 /**
@@ -807,12 +864,27 @@ function fermerModal() {
  * Met à jour les statistiques
  */
 function mettreAJourStatistiques() {
-  const trajets = recupererTrajets();
   const totalTrajets = document.getElementById('total-trajets');
   const totalPlaces = document.getElementById('total-places');
 
-  if (totalTrajets) totalTrajets.textContent = trajets.length;
-  if (totalPlaces) totalPlaces.textContent = trajets.reduce((sum, t) => sum + t.places, 0);
+  if (!totalTrajets || !totalPlaces) return;
+
+  // Récupérer les trajets depuis le DOM plutôt que de les passer en paramètre
+  const trajetsElements = document.querySelectorAll('#trajets-container > div');
+  const trajets = Array.from(trajetsElements).filter(el => el.style.display !== 'none');
+
+  const totalPlacesDisponibles = trajets.reduce((total, trajet) => {
+    const placesElement = trajet.querySelector('span');
+    if (placesElement) {
+      const placesText = placesElement.textContent;
+      const places = parseInt(placesText.match(/\d+/)?.[0] || '0');
+      return total + places;
+    }
+    return total;
+  }, 0);
+
+  totalTrajets.textContent = trajets.length;
+  totalPlaces.textContent = totalPlacesDisponibles;
 }
 
 /**

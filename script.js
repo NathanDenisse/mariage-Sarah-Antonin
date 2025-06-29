@@ -497,7 +497,6 @@ async function initCovoiturage() {
  */
 async function envoyerPropositionCovoiturage() {
   const formData = {
-    id: Date.now(), // ID unique
     nom: document.getElementById('nom').value,
     telephone: document.getElementById('telephone').value,
     depart: document.getElementById('depart').value,
@@ -529,9 +528,10 @@ async function envoyerPropositionCovoiturage() {
  * Sauvegarde un trajet dans Supabase
  */
 async function sauvegarderTrajet(trajet) {
-  const { error } = await supabase.from('covoiturage').insert([trajet]);
+  const { data, error } = await supabase.from('covoiturage').insert([trajet]);
+  console.log('Réponse insertion Supabase:', { data, error });
   if (error) {
-    afficherMessageConfirmation('Erreur lors de l\'ajout du trajet', 'error');
+    afficherMessageConfirmation('Erreur lors de l\'ajout du trajet : ' + error.message, 'error');
     console.error(error);
   }
 }

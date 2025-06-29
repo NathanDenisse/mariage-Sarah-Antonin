@@ -1445,10 +1445,55 @@ p {
 }
 
 .section-footer {
-  text-align: center;
-  margin-top: var(--spacing-xl);
-  padding-top: var(--spacing-lg);
-  border-top: 1px solid var(--color-off-white);
+  position: fixed;
+  right: 2vw;
+  bottom: 2vw;
+  z-index: 100;
+  display: flex;
+  justify-content: flex-end;
+  width: auto;
+  pointer-events: none;
+  background: none;
+}
+
+.section-footer .nav-button {
+  pointer-events: auto;
+  opacity: 0.85;
+  background: rgba(168, 213, 186, 0.85);
+  color: var(--color-dark);
+  box-shadow: 0 2px 12px rgba(168, 213, 186, 0.10);
+  border-radius: 30px;
+  font-size: 1rem;
+  padding: 0.7rem 1.5rem;
+  transition: opacity 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.section-footer .nav-button:hover {
+  opacity: 1;
+  background: linear-gradient(135deg, var(--color-pastel-green), var(--color-rose-gold));
+  color: white;
+  box-shadow: 0 4px 16px rgba(168, 213, 186, 0.18);
+}
+
+.section-footer.hide {
+  display: none !important;
+}
+
+@media (max-width: 768px) {
+  .section-footer {
+    position: static;
+    margin-top: var(--spacing-lg);
+    justify-content: center;
+    width: 100%;
+  }
+
+  .section-footer .nav-button {
+    width: 90%;
+    max-width: 350px;
+    font-size: 1.05rem;
+    padding: 1rem 0;
+    border-radius: 25px;
+  }
 }
 
 /* ===== LIENS GOOGLE MAPS ===== */
@@ -1476,52 +1521,4 @@ p {
 .map-link::before {
   content: '📍';
   font-size: 1.1rem;
-}
-
-/* ===== BOUTONS DE NAVIGATION FLOTTANTS ===== */
-.section-footer {
-  position: absolute;
-  right: 2vw;
-  bottom: 2vw;
-  z-index: 10;
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
-  pointer-events: none;
-}
-
-.section-footer .nav-button {
-  pointer-events: auto;
-  opacity: 0.85;
-  background: rgba(168, 213, 186, 0.85);
-  color: var(--color-dark);
-  box-shadow: 0 2px 12px rgba(168, 213, 186, 0.10);
-  border-radius: 30px;
-  font-size: 1rem;
-  padding: 0.7rem 1.5rem;
-  transition: opacity 0.2s, box-shadow 0.2s, background 0.2s;
-}
-
-.section-footer .nav-button:hover {
-  opacity: 1;
-  background: linear-gradient(135deg, var(--color-pastel-green), var(--color-rose-gold));
-  color: white;
-  box-shadow: 0 4px 16px rgba(168, 213, 186, 0.18);
-}
-
-@media (max-width: 768px) {
-  .section-footer {
-    position: static;
-    margin-top: var(--spacing-lg);
-    justify-content: center;
-    width: 100%;
-  }
-
-  .section-footer .nav-button {
-    width: 90%;
-    max-width: 350px;
-    font-size: 1.05rem;
-    padding: 1rem 0;
-    border-radius: 25px;
-  }
 }

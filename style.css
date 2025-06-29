@@ -543,28 +543,77 @@ p {
 /* ===== INFOS PRATIQUES ===== */
 .infos-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: var(--spacing-lg);
   margin-top: var(--spacing-lg);
 }
 
 .info-card {
   background: white;
-  padding: var(--spacing-lg);
-  border-radius: 15px;
+  border-radius: 20px;
+  padding: var(--spacing-xl);
   box-shadow: var(--shadow-light);
-  text-align: center;
+  border: 1px solid rgba(168, 213, 186, 0.1);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.info-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--color-pastel-green), var(--color-rose-gold));
+  transform: scaleX(0);
   transition: var(--transition);
 }
 
 .info-card:hover {
   transform: translateY(-5px);
   box-shadow: var(--shadow-medium);
+  border-color: var(--color-pastel-green);
+}
+
+.info-card:hover::before {
+  transform: scaleX(1);
 }
 
 .info-card h3 {
   color: var(--color-pastel-green);
-  margin-bottom: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+  font-size: 1.3rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.info-card p {
+  color: var(--color-gray);
+  line-height: 1.7;
+  margin: 0;
+  font-size: 1rem;
+}
+
+.info-card small {
+  color: var(--color-gray);
+  font-style: italic;
+  opacity: 0.8;
+}
+
+.info-card a {
+  color: var(--color-pastel-green);
+  text-decoration: none;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.info-card a:hover {
+  color: var(--color-rose-gold);
+  text-decoration: underline;
 }
 
 /* ===== GALERIE ===== */
@@ -1103,11 +1152,17 @@ p {
 
   .info-card {
     background: white;
-    border-radius: 20px;
+    border-radius: 15px;
     padding: var(--spacing-lg);
     box-shadow: var(--shadow-light);
     border: 1px solid rgba(168, 213, 186, 0.1);
     text-align: left;
+    transition: var(--transition);
+  }
+
+  .info-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-medium);
   }
 
   .info-card h3 {
@@ -1116,6 +1171,12 @@ p {
     display: flex;
     align-items: center;
     gap: var(--spacing-xs);
+    font-size: 1.2rem;
+  }
+
+  .info-card p {
+    line-height: 1.6;
+    font-size: 0.95rem;
   }
 
   /* Cagnotte améliorée */

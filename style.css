@@ -229,36 +229,45 @@ p {
 @media (max-width: 900px) {
   .nav-menu {
     position: fixed;
-    left: 50%;
-    top: 64px;
-    transform: translate(-50%, -120%);
-    width: 92vw;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
     background: #fff;
     flex-direction: column;
     align-items: center;
-    gap: 0.5rem;
-    padding: 1.2rem 0.5rem 1.3rem 0.5rem;
-    box-shadow: 0 8px 24px rgba(168, 213, 186, 0.13);
-    border-radius: 0 0 18px 18px;
+    justify-content: center;
+    gap: 0;
+    padding: 0;
+    box-shadow: 0 8px 32px rgba(168, 213, 186, 0.13);
+    border-radius: 0;
     transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s;
-    z-index: 1001;
-    opacity: 0.98;
-    pointer-events: auto;
+    z-index: 2000;
+    opacity: 1;
+    transform: translateY(-100%);
+    pointer-events: none;
   }
 
   .nav-menu.open {
-    transform: translate(-50%, 0);
+    transform: translateY(0);
+    pointer-events: auto;
   }
 
   .nav-link {
-    width: 100%;
-    padding: 1rem 1.2rem;
-    font-size: 1.12rem;
-    border-bottom: 2px solid transparent;
+    width: 100vw;
+    padding: 0.7rem 0;
+    font-size: 1.15rem;
+    border-bottom: 1px solid #f0f0f0;
     text-align: center;
-    margin: 0.08rem 0;
+    margin: 0;
     background: none;
     transition: background 0.2s;
+    color: var(--color-dark);
+    font-weight: 500;
+  }
+
+  .nav-link:last-child {
+    border-bottom: none;
   }
 
   .nav-link:active,
@@ -278,8 +287,10 @@ p {
     border: none;
     cursor: pointer;
     padding: 0;
-    margin-left: 1rem;
-    z-index: 1100;
+    position: fixed;
+    top: 18px;
+    right: 18px;
+    z-index: 2100;
     transition: 0.3s;
   }
 

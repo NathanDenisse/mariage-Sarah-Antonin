@@ -310,7 +310,7 @@ function initStickySectionButton() {
   updateButton();
 }
 
-// NAVIGATION MOBILE REFAITE
+// NAVIGATION MOBILE OVERLAY REFAITE
 function initMinimalNavBar() {
   const hamburger = document.querySelector('.hamburger');
   const navMenu = document.querySelector('.nav-menu');

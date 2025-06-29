@@ -513,40 +513,16 @@ async function envoyerPropositionCovoiturage() {
   // Sauvegarder dans Supabase
   await sauvegarderTrajet(formData);
 
-  // Créer le message pour l'email (pour backup)
-  const message = `
-Bonjour Sarah & Antonin,
-
-Nouvelle proposition de covoiturage :
-
-👤 Nom : ${formData.nom}
-📞 Téléphone : ${formData.telephone}
-🚗 Trajet : ${formData.depart} → ${formData.arrivee}
-📅 Date : ${formData.date}
-⏰ Heure : ${formData.heure}
-💺 Places : ${formData.places}
-💬 Commentaires : ${formData.commentaires || 'Aucun'}
-
-Merci !
-  `.trim();
-
-  // Ouvrir l'email avec les données pré-remplies
-  const emailSubject = encodeURIComponent('Nouvelle proposition de covoiturage - Mariage Sarah & Antonin');
-  const emailBody = encodeURIComponent(message);
-  const emailLink = `mailto:sarah.denisse@gmail.com?subject=${emailSubject}&body=${emailBody}`;
-
-  window.open(emailLink);
-
   // Réinitialiser le formulaire
   document.getElementById('covoiturage-form').reset();
+  document.getElementById('form-proposer').style.display = 'none';
+  document.getElementById('liste-trajets').style.display = 'block';
 
   // Afficher un message de confirmation
-  afficherMessageConfirmation('Votre proposition a été ajoutée au tableau ! Nous vous recontacterons rapidement.');
+  afficherMessageConfirmation('Votre proposition a été ajoutée au tableau !');
 
-  // Actualiser l'affichage si la liste est visible
-  if (document.getElementById('liste-trajets').style.display !== 'none') {
-    await afficherTrajets();
-  }
+  // Actualiser l'affichage
+  await afficherTrajets();
 }
 
 /**

@@ -569,38 +569,73 @@ p {
 
 /* ===== GALERIE ===== */
 .galerie-content {
-  text-align: center;
   max-width: 600px;
   margin: 0 auto;
+  text-align: center;
 }
 
 .galerie-intro {
   margin-bottom: var(--spacing-lg);
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 
 .galerie-button {
-  display: inline-block;
   background: linear-gradient(135deg, var(--color-pastel-green), var(--color-rose-gold));
   color: white;
-  padding: var(--spacing-md) var(--spacing-lg);
-  border-radius: 50px;
+  padding: var(--spacing-lg);
+  border-radius: 20px;
   text-decoration: none;
-  font-weight: 600;
+  display: block;
   transition: var(--transition);
   box-shadow: var(--shadow-light);
+  margin-bottom: var(--spacing-lg);
 }
 
 .galerie-button:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
   box-shadow: var(--shadow-medium);
 }
 
 .galerie-button small {
   display: block;
-  font-size: 0.8rem;
-  opacity: 0.8;
   margin-top: var(--spacing-xs);
+  opacity: 0.9;
+  font-size: 0.9rem;
+}
+
+.galerie-info {
+  background: white;
+  padding: var(--spacing-lg);
+  border-radius: 15px;
+  box-shadow: var(--shadow-light);
+  text-align: left;
+  margin-top: var(--spacing-lg);
+}
+
+.galerie-info p {
+  margin-bottom: var(--spacing-sm);
+  color: var(--color-dark);
+  font-weight: 600;
+}
+
+.galerie-info ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.galerie-info li {
+  padding: var(--spacing-xs) 0;
+  color: var(--color-gray);
+  position: relative;
+  padding-left: var(--spacing-md);
+}
+
+.galerie-info li::before {
+  content: '📸';
+  position: absolute;
+  left: 0;
+  top: var(--spacing-xs);
 }
 
 /* ===== CAGNOTTE ===== */

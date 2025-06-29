@@ -420,6 +420,10 @@ async function initCovoiturage() {
   const filtreDirection = document.getElementById('filtre-direction');
   const filtreStatut = document.getElementById('filtre-statut');
 
+  console.log('initCovoiturage appelé');
+  console.log('btnProposer:', btnProposer);
+  console.log('btnRechercher:', btnRechercher);
+
   // Gestion des boutons d'action
   if (btnProposer) {
     btnProposer.addEventListener('click', function () {
@@ -427,6 +431,7 @@ async function initCovoiturage() {
       listeTrajets.style.display = 'none';
       btnProposer.style.opacity = '0.7';
       btnRechercher.style.opacity = '1';
+      console.log('Bouton Proposer cliqué');
     });
   }
 
@@ -437,6 +442,7 @@ async function initCovoiturage() {
       btnRechercher.style.opacity = '0.7';
       btnProposer.style.opacity = '1';
       afficherTrajets();
+      console.log('Bouton Rechercher cliqué');
     });
   }
 
@@ -940,7 +946,10 @@ async function initWebsite() {
 // ===== INITIALISATION =====
 
 // Attendre que le DOM soit chargé
-document.addEventListener('DOMContentLoaded', async () => { await initWebsite(); });
+document.addEventListener('DOMContentLoaded', async () => {
+  console.log('DOMContentLoaded');
+  await initWebsite();
+});
 
 // Gérer le rechargement de la page pour les navigateurs qui ne supportent pas DOMContentLoaded
 if (document.readyState === 'loading') {

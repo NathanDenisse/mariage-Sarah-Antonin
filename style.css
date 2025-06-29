@@ -775,52 +775,60 @@ p {
   font-family: 'Courier New', monospace;
 }
 
-/* ===== DRESS CODE ===== */
+/* ===== DRESS CODE MODERNE ===== */
 .dresscode-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--spacing-xl);
-  align-items: start;
+  background: white;
+  border-radius: 18px;
+  box-shadow: 0 2px 12px rgba(168, 213, 186, 0.08);
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
-.dresscode-colors h3,
-.dresscode-tips h3 {
-  color: var(--color-pastel-green);
-  margin-bottom: var(--spacing-md);
+.dresscode-content h3 {
+  color: #b71c1c;
+  font-size: 1.3rem;
+  margin-bottom: 1.2rem;
 }
 
-.color-palette {
-  display: flex;
-  gap: var(--spacing-sm);
-  flex-wrap: wrap;
-}
-
-.color-swatch {
-  flex: 1;
-  min-width: 100px;
-  height: 60px;
-  border-radius: 10px;
+.dresscode-content .color-swatch {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
+  font-size: 1.1rem;
   font-weight: 600;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-  box-shadow: var(--shadow-light);
+  margin: 0 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.dresscode-content .color-swatch:first-child {
+  background: #b71c1c;
+}
+
+.dresscode-content .color-swatch:last-child {
+  background: #388e3c;
+}
+
+.dresscode-tips h4 {
+  color: var(--color-pastel-green);
+  margin-bottom: 0.7rem;
 }
 
 .dresscode-tips ul {
-  list-style: none;
-  padding-left: 0;
+  color: var(--color-gray);
+  font-size: 1rem;
+  text-align: left;
+  margin: 0 auto;
+  max-width: 400px;
 }
 
 .dresscode-tips li {
-  padding: var(--spacing-sm) 0;
-  border-bottom: 1px solid var(--color-off-white);
-}
-
-.dresscode-tips li:last-child {
-  border-bottom: none;
+  margin-bottom: 0.5rem;
 }
 
 /* ===== COMPTE À REBOURS ROMANTIQUE ===== */
@@ -1205,30 +1213,6 @@ p {
     padding: var(--spacing-lg);
     box-shadow: var(--shadow-light);
     border: 1px solid rgba(168, 213, 186, 0.2);
-  }
-
-  /* Dress code amélioré */
-  .dresscode-content {
-    grid-template-columns: 1fr;
-    gap: var(--spacing-lg);
-  }
-
-  .color-palette {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--spacing-sm);
-  }
-
-  .color-swatch {
-    aspect-ratio: 1;
-    border-radius: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--color-dark);
-    box-shadow: var(--shadow-light);
   }
 
   /* FAQ améliorée */

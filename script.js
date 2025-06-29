@@ -334,6 +334,38 @@ function showNotification(message, type = 'info') {
 }
 
 /**
+ * Bouton sticky flottant pour navigation entre sections
+ */
+function initStickySectionButton() {
+  const sections = Array.from(document.querySelectorAll('section[id]'));
+  const footers = Array.from(document.querySelectorAll('.section-footer'));
+  const navButton = document.createElement('a');
+  navButton.className = 'nav-button sticky-next';
+  navButton.style.display = 'none';
+  document.body.appendChild(navButton);
+
+  function updateButton() {
+    let currentSectionIndex = sections.findIndex(sec => {
+      const rect = sec.getBoundingClientRect();
+      return rect.top <= window.innerHeight * 0.3 && rect.bottom > window.innerHeight * 0.3;
+    });
+    if (currentSectionIndex === -1 || currentSectionIndex === sections.length - 1) {
+      navButton.style.display = 'none';
+      return;
+    }
+    const nextSection = sections[currentSectionIndex + 1];
+    navButton.href = `#${nextSection.id}`;
+    navButton.innerHTML = `${nextSection.querySelector('.section-title')?.textContent || 'Section suivante'} <span class="arrow">→</span>`;
+    navButton.style.display = 'flex';
+  }
+
+  window.addEventListener('scroll', updateButton);
+  window.addEventListener('resize', updateButton);
+  document.addEventListener('DOMContentLoaded', updateButton);
+  updateButton();
+}
+
+/**
  * Initialise toutes les fonctionnalités du site
  */
 function initWebsite() {
@@ -364,6 +396,9 @@ function initWebsite() {
 
   // Initialiser le copier-coller du RIB
   initRIBCopy();
+
+  // Initialiser le bouton sticky
+  initStickySectionButton();
 
   // Ajouter un message de bienvenue dans la console
   console.log('🎉 Site de mariage Sarah & Antonin chargé avec succès !');

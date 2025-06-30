@@ -910,14 +910,13 @@ function fermerModal() {
 function mettreAJourStatistiques() {
   const totalTrajets = document.getElementById('total-trajets');
   const totalPlaces = document.getElementById('total-places');
-
   if (!totalTrajets || !totalPlaces) return;
 
-  // Récupérer les trajets depuis le DOM plutôt que de les passer en paramètre
-  const trajetsElements = document.querySelectorAll('#trajets-container > div');
-  const trajets = Array.from(trajetsElements).filter(el => el.style.display !== 'none');
+  // On sélectionne uniquement les trajets réels (divs avec un conducteur, pas le message "aucun trajet")
+  const trajetsElements = Array.from(document.querySelectorAll('#trajets-container > div'));
+  const trajetsReels = trajetsElements.filter(el => el.querySelector('strong'));
 
-  const totalPlacesDisponibles = trajets.reduce((total, trajet) => {
+  const totalPlacesDisponibles = trajetsReels.reduce((total, trajet) => {
     const placesElement = trajet.querySelector('span');
     if (placesElement) {
       const placesText = placesElement.textContent;
@@ -927,7 +926,7 @@ function mettreAJourStatistiques() {
     return total;
   }, 0);
 
-  totalTrajets.textContent = trajets.length;
+  totalTrajets.textContent = trajetsReels.length;
   totalPlaces.textContent = totalPlacesDisponibles;
 }
 

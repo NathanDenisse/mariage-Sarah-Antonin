@@ -204,7 +204,8 @@ p {
 }
 
 .hamburger {
-  display: none;
+  display: flex;
+  /* DEBUG: Afficher sur tous les écrans */
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -215,6 +216,13 @@ p {
   cursor: pointer;
   padding: 0;
   margin-left: 1rem;
+  position: fixed;
+  /* DEBUG: Position fixe pour toujours être visible */
+  top: 18px;
+  right: 18px;
+  z-index: 2100;
+  border: 3px solid purple !important;
+  /* DEBUG: Bordure violette */
 }
 
 .bar {

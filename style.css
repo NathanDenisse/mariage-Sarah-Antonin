@@ -250,7 +250,7 @@ p {
     max-height: 100vh;
   }
 
-  .nav-menu.open {
+  .nav-menu.active {
     transform: translateY(0);
     pointer-events: auto;
   }
@@ -305,25 +305,25 @@ p {
     transition: 0.3s;
   }
 
-  .hamburger.open .bar:nth-child(1) {
+  .hamburger.active .bar:nth-child(1) {
     transform: translateY(6px) rotate(45deg);
   }
 
-  .hamburger.open .bar:nth-child(2) {
+  .hamburger.active .bar:nth-child(2) {
     opacity: 0;
   }
 
-  .hamburger.open .bar:nth-child(3) {
+  .hamburger.active .bar:nth-child(3) {
     transform: translateY(-6px) rotate(-45deg);
   }
 
-  .nav-menu.open~.sticky-next {
+  .nav-menu.active~.sticky-next {
     display: none !important;
   }
 }
 
 /* Fallback pour garantir la disparition du sticky sur overlay mobile */
-.nav-menu.open~.sticky-next,
+.nav-menu.active~.sticky-next,
 body.menu-open .sticky-next {
   display: none !important;
 }

@@ -1,6 +1,6 @@
 // ===== CONFIGURATION SUPABASE =====
-const SUPABASE_URL = 'https://leokaeqifxrtoudfuhb.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imxlb2thZXFpZnhydG9vdWRmdWhiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTEyMzIwNDEsImV4cCI6MjA2NjgwODA0MX0.zQKNH-CSifGGKKaQKfoc_VUx1Fnu_eumNq0jpU_IOlI';
+const SUPABASE_URL = 'https://vryohvsuzmbszbqostuw.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZyeW9odnN1em1ic3picW9zdHV3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTEyOTIwMTYsImV4cCI6MjA2Njg2ODAxNn0.yADi21YQF-58E9hS6b8qht0Zh2Ys25Ro3JEXqiFj-FY';
 
 // Vérifier que la librairie Supabase est chargée
 if (typeof window.supabase === 'undefined') {

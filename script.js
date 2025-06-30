@@ -540,11 +540,15 @@ async function initCovoiturage() {
   });
 
   // Gestion du formulaire
-  covoiturageForm.addEventListener('submit', function (e) {
-    console.log('📝 Formulaire soumis');
-    e.preventDefault();
-    envoyerPropositionCovoiturage();
-  });
+  if (covoiturageForm) {
+    covoiturageForm.removeEventListener('submit', window._covoiturageSubmitListener);
+    window._covoiturageSubmitListener = function (e) {
+      console.log('📝 Formulaire soumis');
+      e.preventDefault();
+      envoyerPropositionCovoiturage();
+    };
+    covoiturageForm.addEventListener('submit', window._covoiturageSubmitListener);
+  }
 
   // Gestion des filtres et actualisation
   if (btnRafraichir) {
@@ -994,9 +998,6 @@ async function initWebsite() {
   updateCountdown();
   setInterval(updateCountdown, 1000);
 
-  // Initialiser la navigation mobile
-  initMobileNavigation();
-
   // Initialiser les animations au scroll
   initScrollAnimations();
 
@@ -1018,7 +1019,7 @@ async function initWebsite() {
   // Initialiser le bouton sticky
   initStickySectionButton();
 
-  // Initialiser la navigation smooth
+  // Initialiser la navigation smooth + mobile
   initMinimalNavBar();
 
   // Initialiser la section covoiturage
@@ -1035,7 +1036,6 @@ async function initWebsite() {
 }
 
 // ===== INITIALISATION =====
-// On n'initialise qu'une seule fois !
 if (!window._websiteInitialized) {
   window._websiteInitialized = true;
   document.addEventListener('DOMContentLoaded', async () => {

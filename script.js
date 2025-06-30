@@ -399,13 +399,18 @@ function initMinimalNavBar() {
   const navBar = document.querySelector('.navbar');
   const navHeight = navBar ? navBar.offsetHeight : 60;
 
-  // Hamburger mobile : toggle classe active
+  console.log('initMinimalNavBar:', { hamburger, navMenu, navLinks, navBar });
+
+  // DEBUG : forcer l'affichage du menu mobile si besoin
+  // navMenu.classList.add('active'); hamburger.classList.add('active');
+
   hamburger.addEventListener('click', () => {
     const isActive = navMenu.classList.toggle('active');
     hamburger.classList.toggle('active', isActive);
     hamburger.setAttribute('aria-expanded', isActive ? 'true' : 'false');
     document.body.classList.toggle('menu-open', isActive);
     if (isActive) navMenu.querySelector('.nav-link').focus();
+    console.log('Hamburger cliqué, menu actif ?', isActive);
   });
   // Fermer menu mobile au clic sur lien
   navLinks.forEach(link => {
@@ -414,6 +419,7 @@ function initMinimalNavBar() {
       hamburger.classList.remove('active');
       hamburger.setAttribute('aria-expanded', 'false');
       document.body.classList.remove('menu-open');
+      console.log('Lien menu mobile cliqué, menu fermé');
     });
   });
   // Fermer menu mobile avec Echap
@@ -424,6 +430,7 @@ function initMinimalNavBar() {
       hamburger.setAttribute('aria-expanded', 'false');
       document.body.classList.remove('menu-open');
       hamburger.focus();
+      console.log('Echap pressé, menu fermé');
     }
   });
   // Focus piégé dans le menu mobile
@@ -595,6 +602,8 @@ async function initCovoiturage() {
  * Envoie la proposition de covoiturage
  */
 async function envoyerPropositionCovoiturage() {
+  window._covoitSubmitCount = (window._covoitSubmitCount || 0) + 1;
+  console.log('envoyerPropositionCovoiturage appelée', window._covoitSubmitCount, 'fois');
   const formData = {
     nom: document.getElementById('nom').value,
     telephone: document.getElementById('telephone').value,

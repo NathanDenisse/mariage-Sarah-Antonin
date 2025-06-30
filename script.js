@@ -399,19 +399,19 @@ function initMinimalNavBar() {
   const navBar = document.querySelector('.navbar');
   const navHeight = navBar ? navBar.offsetHeight : 60;
 
-  // Hamburger mobile : toggle classe open
+  // Hamburger mobile : toggle classe active
   hamburger.addEventListener('click', () => {
-    const isOpen = navMenu.classList.toggle('open');
-    hamburger.classList.toggle('open', isOpen);
-    hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-    document.body.classList.toggle('menu-open', isOpen);
-    if (isOpen) navMenu.querySelector('.nav-link').focus();
+    const isActive = navMenu.classList.toggle('active');
+    hamburger.classList.toggle('active', isActive);
+    hamburger.setAttribute('aria-expanded', isActive ? 'true' : 'false');
+    document.body.classList.toggle('menu-open', isActive);
+    if (isActive) navMenu.querySelector('.nav-link').focus();
   });
   // Fermer menu mobile au clic sur lien
   navLinks.forEach(link => {
     link.addEventListener('click', () => {
-      navMenu.classList.remove('open');
-      hamburger.classList.remove('open');
+      navMenu.classList.remove('active');
+      hamburger.classList.remove('active');
       hamburger.setAttribute('aria-expanded', 'false');
       document.body.classList.remove('menu-open');
     });
@@ -419,8 +419,8 @@ function initMinimalNavBar() {
   // Fermer menu mobile avec Echap
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
-      navMenu.classList.remove('open');
-      hamburger.classList.remove('open');
+      navMenu.classList.remove('active');
+      hamburger.classList.remove('active');
       hamburger.setAttribute('aria-expanded', 'false');
       document.body.classList.remove('menu-open');
       hamburger.focus();
@@ -428,7 +428,7 @@ function initMinimalNavBar() {
   });
   // Focus piégé dans le menu mobile
   navMenu.addEventListener('keydown', (e) => {
-    if (!navMenu.classList.contains('open')) return;
+    if (!navMenu.classList.contains('active')) return;
     const focusable = Array.from(navMenu.querySelectorAll('.nav-link'));
     const first = focusable[0];
     const last = focusable[focusable.length - 1];
@@ -806,8 +806,8 @@ async function supprimerTrajetAvecConfirmation(trajetId) {
 /**
  * Ouvre la modal de modification d'un trajet
  */
-function modifierTrajet(trajetId) {
-  const trajets = recupererTrajets();
+async function modifierTrajet(trajetId) {
+  const trajets = await recupererTrajets();
   const trajet = trajets.find(t => t.id === trajetId);
 
   if (!trajet) return;
@@ -1035,12 +1035,14 @@ async function initWebsite() {
 }
 
 // ===== INITIALISATION =====
-
-// Attendre que le DOM soit chargé
-document.addEventListener('DOMContentLoaded', async () => {
-  console.log('DOMContentLoaded');
-  await initWebsite();
-});
+// On n'initialise qu'une seule fois !
+if (!window._websiteInitialized) {
+  window._websiteInitialized = true;
+  document.addEventListener('DOMContentLoaded', async () => {
+    console.log('DOMContentLoaded');
+    await initWebsite();
+  });
+}
 
 // Gérer le rechargement de la page pour les navigateurs qui ne supportent pas DOMContentLoaded
 if (document.readyState === 'loading') {

@@ -393,13 +393,19 @@ function initStickySectionButton() {
 
 // NAVIGATION MOBILE OVERLAY REFAITE
 function initMinimalNavBar() {
+  console.log('🔧 === INITIALISATION NAVIGATION ===');
+
   const hamburger = document.querySelector('.hamburger');
   const navMenu = document.querySelector('.nav-menu');
   const navLinks = document.querySelectorAll('.nav-link');
   const navBar = document.querySelector('.navbar');
   const navHeight = navBar ? navBar.offsetHeight : 60;
 
-  console.log('initMinimalNavBar:', { hamburger, navMenu, navLinks, navBar });
+  console.log('🔍 Éléments trouvés:');
+  console.log('- hamburger:', hamburger ? '✅ TROUVÉ' : '❌ MANQUANT');
+  console.log('- navMenu:', navMenu ? '✅ TROUVÉ' : '❌ MANQUANT');
+  console.log('- navLinks:', navLinks.length, 'liens trouvés');
+  console.log('- navBar:', navBar ? '✅ TROUVÉ' : '❌ MANQUANT');
 
   if (!hamburger) {
     console.error('❌ Bouton hamburger non trouvé dans le DOM');
@@ -410,18 +416,33 @@ function initMinimalNavBar() {
     return;
   }
 
-  // DEBUG : forcer l'affichage du menu mobile si besoin
-  // navMenu.classList.add('active'); hamburger.classList.add('active');
+  console.log('🎯 Tentative d\'attachement de l\'événement de clic...');
 
-  hamburger.addEventListener('click', () => {
-    console.log('Hamburger cliqué !');
+  // Supprimer les anciens listeners pour éviter les doublons
+  hamburger.removeEventListener('click', window._hamburgerClickHandler);
+
+  // Créer le nouveau handler
+  window._hamburgerClickHandler = () => {
+    console.log('🔥 Hamburger cliqué !');
     const isActive = navMenu.classList.toggle('active');
     hamburger.classList.toggle('active', isActive);
     hamburger.setAttribute('aria-expanded', isActive ? 'true' : 'false');
     document.body.classList.toggle('menu-open', isActive);
     if (isActive) navMenu.querySelector('.nav-link').focus();
-    console.log('Hamburger cliqué, menu actif ?', isActive);
-  });
+    console.log('✅ Hamburger cliqué, menu actif ?', isActive);
+  };
+
+  // Attacher le listener
+  hamburger.addEventListener('click', window._hamburgerClickHandler);
+  console.log('✅ Événement de clic attaché au hamburger');
+
+  // Test manuel pour vérifier que l'élément est cliquable
+  console.log('🧪 Test de cliquabilité du hamburger:');
+  console.log('- display:', window.getComputedStyle(hamburger).display);
+  console.log('- position:', window.getComputedStyle(hamburger).position);
+  console.log('- z-index:', window.getComputedStyle(hamburger).zIndex);
+  console.log('- pointer-events:', window.getComputedStyle(hamburger).pointerEvents);
+
   // Fermer menu mobile au clic sur lien
   navLinks.forEach(link => {
     link.addEventListener('click', () => {
@@ -429,9 +450,10 @@ function initMinimalNavBar() {
       hamburger.classList.remove('active');
       hamburger.setAttribute('aria-expanded', 'false');
       document.body.classList.remove('menu-open');
-      console.log('Lien menu mobile cliqué, menu fermé');
+      console.log('🔗 Lien menu mobile cliqué, menu fermé');
     });
   });
+
   // Fermer menu mobile avec Echap
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
@@ -440,9 +462,10 @@ function initMinimalNavBar() {
       hamburger.setAttribute('aria-expanded', 'false');
       document.body.classList.remove('menu-open');
       hamburger.focus();
-      console.log('Echap pressé, menu fermé');
+      console.log('⌨️ Echap pressé, menu fermé');
     }
   });
+
   // Focus piégé dans le menu mobile
   navMenu.addEventListener('keydown', (e) => {
     if (!navMenu.classList.contains('active')) return;
@@ -459,6 +482,7 @@ function initMinimalNavBar() {
       }
     }
   });
+
   // Highlight actif + scroll smooth offset
   function getCurrentSection() {
     let current = '';
@@ -472,6 +496,7 @@ function initMinimalNavBar() {
     });
     return current;
   }
+
   function updateActiveNavLink() {
     const currentSection = getCurrentSection();
     navLinks.forEach(link => {
@@ -481,8 +506,10 @@ function initMinimalNavBar() {
       }
     });
   }
+
   window.addEventListener('scroll', updateActiveNavLink);
   document.addEventListener('DOMContentLoaded', updateActiveNavLink);
+
   // Scroll smooth offset
   navLinks.forEach(link => {
     link.addEventListener('click', function (e) {
@@ -497,6 +524,8 @@ function initMinimalNavBar() {
       }
     });
   });
+
+  console.log('✅ Initialisation navigation terminée');
 }
 
 /**

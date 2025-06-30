@@ -401,10 +401,20 @@ function initMinimalNavBar() {
 
   console.log('initMinimalNavBar:', { hamburger, navMenu, navLinks, navBar });
 
+  if (!hamburger) {
+    console.error('❌ Bouton hamburger non trouvé dans le DOM');
+    return;
+  }
+  if (!navMenu) {
+    console.error('❌ nav-menu non trouvé dans le DOM');
+    return;
+  }
+
   // DEBUG : forcer l'affichage du menu mobile si besoin
   // navMenu.classList.add('active'); hamburger.classList.add('active');
 
   hamburger.addEventListener('click', () => {
+    console.log('Hamburger cliqué !');
     const isActive = navMenu.classList.toggle('active');
     hamburger.classList.toggle('active', isActive);
     hamburger.setAttribute('aria-expanded', isActive ? 'true' : 'false');

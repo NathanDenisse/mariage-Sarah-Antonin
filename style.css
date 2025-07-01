@@ -234,6 +234,22 @@ p {
   transition: 0.3s;
 }
 
+/* DEBUG: Règle globale pour forcer l'affichage du menu mobile */
+.nav-menu.active {
+  left: 0 !important;
+  background: rgba(0, 255, 0, 0.9) !important;
+  transform: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  position: fixed !important;
+  top: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 2000 !important;
+  border: 5px solid blue !important;
+}
+
 @media (max-width: 900px) {
   .nav-menu {
     position: fixed;
@@ -264,6 +280,20 @@ p {
     /* DEBUG: Force l'affichage */
     background: rgba(0, 255, 0, 0.9) !important;
     /* DEBUG: Vert quand actif */
+    transform: none !important;
+    /* DEBUG: Supprime toute transformation */
+    opacity: 1 !important;
+    /* DEBUG: Force l'opacité */
+    visibility: visible !important;
+    /* DEBUG: Force la visibilité */
+    pointer-events: auto !important;
+    /* DEBUG: Force les interactions */
+    position: fixed !important;
+    top: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: 2000 !important;
+    border: 5px solid blue !important;
   }
 
   .nav-link {

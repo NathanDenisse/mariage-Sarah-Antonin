@@ -207,6 +207,7 @@ p {
   display: none;
 }
 
+/* ===== MENU MOBILE PROPRE ===== */
 @media (max-width: 900px) {
   .nav-menu {
     position: fixed;
@@ -232,6 +233,12 @@ p {
 
   .nav-menu.active {
     left: 0;
+    background: rgba(255, 255, 255, 0.97);
+    box-shadow: 0 8px 32px rgba(168, 213, 186, 0.13);
+    border-radius: 0 0 24px 24px;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
   }
 
   .nav-link {
@@ -306,10 +313,14 @@ p {
   }
 }
 
-/* Fallback pour garantir la disparition du sticky sur overlay mobile */
-.nav-menu.active~.sticky-next,
-body.menu-open .sticky-next {
-  display: none !important;
+.hamburger {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .hamburger {
+    display: flex;
+  }
 }
 
 /* ===== HERO SECTION ===== */

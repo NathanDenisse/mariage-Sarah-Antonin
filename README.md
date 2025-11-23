@@ -1,245 +1,209 @@
-# 💒 Site de Mariage - Sarah & Antonin
+# 💍 Annabelle & Nathan - Wedding Website
 
-Un site web statique moderne et élégant pour célébrer le mariage de Sarah & Antonin le 23 août 2025.
+A beautiful, bilingual (French/English) static wedding website for a destination wedding in Sardinia.
 
-## 🎨 Design
+## 🌐 Features
 
-- **Couleurs** : Vert pastel, or, blanc cassé
-- **Style** : Moderne, élégant, romantique
-- **Responsive** : Optimisé pour mobile et desktop
-- **Animations** : Effets subtils et fluides
-- **Photo** : IMG_9182.jpeg intégrée en arrière-plan
+- **Bilingual**: French and English with easy language switching
+- **Responsive Design**: Works perfectly on mobile, tablet, and desktop
+- **Classic & Romantic Style**: Terracotta and beige color palette
+- **Single Page**: Smooth scrolling navigation between sections
+- **No Framework**: Pure HTML, CSS, and vanilla JavaScript
+- **Static**: No server or build process required
 
-## 📁 Structure des fichiers
+## 📁 Project Structure
 
 ```
-/
-├── index.html          # Page principale
-├── style.css           # Styles CSS
-├── script.js           # Fonctionnalités JavaScript
-├── IMG_9182.jpeg       # Photo de Sarah & Antonin
-└── README.md           # Ce fichier
+Wedding Website/
+├── index.html          # Main HTML file with all content
+├── style.css           # All styling and responsive design
+├── script.js           # Language switcher and interactive features
+├── assets/             # Images and media
+│   ├── dresscode-1.jpg
+│   ├── dresscode-2.jpg
+│   ├── dresscode-3.jpg
+│   ├── photo-1.jpg
+│   ├── photo-2.jpg
+│   ├── photo-3.jpg
+│   ├── photo-4.jpg
+│   └── qr-revolut.png
+└── README.md           # This file
 ```
 
-## 🚀 Installation et utilisation
+## 🎨 Customization
 
-1. **Téléchargez** tous les fichiers dans un dossier
-2. **Ajoutez** votre image de fond nommée `image.jpg`
-3. **Ouvrez** `index.html` dans votre navigateur
-4. **Personnalisez** le contenu selon vos besoins
+### Update Text Content
 
-## ✏️ Personnalisation
+1. Open `index.html` in any text editor
+2. Find the section you want to modify
+3. Update the text inside `<p class="lang-fr">` tags for French
+4. Update the text inside `<p class="lang-en">` tags for English
 
-### 📸 Image de fond
-Votre photo `IMG_9182.jpeg` est déjà intégrée en arrière-plan de la page d'accueil.
-Pour la changer :
-- Remplacez `IMG_9182.jpeg` par votre nouvelle image
-- Modifiez le nom dans `style.css` ligne 147 : `background-image: url('VOTRE_IMAGE');`
-- Format recommandé : JPG ou PNG
-- Taille recommandée : 1920x1080px minimum
+### Replace Images
 
-### 🔗 Liens à configurer
+1. Replace placeholder images in the `assets/` folder with your own photos
+2. Keep the same filenames, or update the image paths in `index.html`
+3. Recommended formats: JPG or PNG
+4. For the QR code: Generate a QR code for `https://revolut.me/nathanbo0k` and save it as `assets/qr-revolut.png`
 
-#### Liens de paiement
-Dans `index.html`, remplacez les liens `#` par vos vrais liens :
+### Change Colors
 
-```html
-<!-- Lydia -->
-<a href="VOTRE_LIEN_LYDIA" class="payment-link">
+1. Open `style.css`
+2. Modify the CSS variables at the top of the file:
+   - `--color-terracotta`: Main accent color
+   - `--color-beige`: Background color
+   - Other color variables as needed
 
-<!-- Revolut -->
-<a href="VOTRE_LIEN_REVOLUT" class="payment-link">
+## 🖥️ Preview Locally
 
-<!-- Wero -->
-<a href="VOTRE_LIEN_WERO" class="payment-link">
+### Option 1: Double-click
+Simply double-click on `index.html` to open it in your default browser.
+
+### Option 2: Local Server (recommended)
+If you have Python installed, run:
+
+```bash
+# Python 3
+python3 -m http.server 8000
+
+# Python 2
+python -m SimpleHTTPServer 8000
 ```
 
-#### Album Google Photos
-```html
-<a href="VOTRE_LIEN_GOOGLE_PHOTOS" class="galerie-link" target="_blank">
+Then open `http://localhost:8000` in your browser.
+
+## 🔗 Connect with GitHub
+
+### Step 1: Create a GitHub Repository
+
+1. Go to [github.com](https://github.com) and log in (or create an account)
+2. Click the **"+"** button in the top right → **"New repository"**
+3. Name it `wedding-website` (or any name you prefer)
+4. Keep it **Public** or **Private** (your choice)
+5. **DO NOT** initialize with README, .gitignore, or license (we already have them)
+6. Click **"Create repository"**
+
+### Step 2: Push Your Code to GitHub
+
+Open Terminal (macOS) and run these commands:
+
+```bash
+# Navigate to your project folder
+cd "/Users/nathandenisse/Desktop/Wedding Website"
+
+# Initialize Git repository
+git init
+
+# Add all files
+git add .
+
+# Make your first commit
+git commit -m "Initial commit - Wedding website"
+
+# Connect to your GitHub repository (replace YOUR-USERNAME with your GitHub username)
+git remote add origin https://github.com/YOUR-USERNAME/wedding-website.git
+
+# Push to GitHub
+git branch -M main
+git push -u origin main
 ```
 
-### 📍 Informations pratiques
-Modifiez les sections suivantes dans `index.html` :
+**Note**: You may be prompted to enter your GitHub username and password. For the password, use a [Personal Access Token](https://github.com/settings/tokens) instead of your actual password.
 
-#### Adresse du lieu
-```html
-<p><strong>Nom du lieu</strong><br>
-Adresse complète<br>
-Code postal Ville<br>
-<em>Supprimez cette ligne quand l'adresse est complète</em></p>
+### Step 3: Update Later
+
+When you make changes to your website:
+
+```bash
+# Add changed files
+git add .
+
+# Commit with a message
+git commit -m "Update photos and content"
+
+# Push to GitHub
+git push
 ```
-
-#### Coordonnées bancaires
-```html
-<p><strong>IBAN :</strong> VOTRE_IBAN_REEL</p>
-<p><strong>BIC :</strong> VOTRE_BIC_REEL</p>
-<p><strong>Titulaire :</strong> VOS_NOMS_REELS</p>
-```
-
-#### Contacts
-```html
-<p>Sarah : VOTRE_NUMERO<br>
-Antonin : VOTRE_NUMERO<br>
-<em>Supprimez cette ligne quand les numéros sont ajoutés</em></p>
-```
-
-### 📅 Date du mariage
-Pour changer la date, modifiez dans `script.js` :
-```javascript
-const weddingDate = new Date('August 23, 2025 15:00:00').getTime();
-```
-
-### 🎨 Couleurs
-Pour modifier les couleurs, éditez les variables CSS dans `style.css` :
-```css
-:root {
-    --color-off-white: #f8f9fa;    /* Blanc cassé */
-    --color-pastel-green: #a8d5ba; /* Vert pastel */
-    --color-gold: #d4af37;         /* Or */
-    --color-dark-gold: #b8860b;    /* Or foncé */
-}
-```
-
-## 📱 Fonctionnalités
-
-### ✅ Fonctionnalités incluses
-- **Navigation sticky** avec menu hamburger mobile
-- **Compte à rebours** dynamique jusqu'au 23 août 2025
-- **FAQ interactive** avec accordéon
-- **Animations au scroll** fluides
-- **Effets de parallaxe** subtils
-- **Copier-coller RIB** en un clic
-- **Design responsive** pour tous les écrans
-- **Navigation smooth** entre les sections
-
-### 🎯 Sections du site
-1. **Accueil** - Noms et date du mariage
-2. **Notre histoire** - Timeline romantique
-3. **Programme** - Planning du week-end
-4. **Infos pratiques** - Lieu, accès, hébergement
-5. **Galerie** - Lien vers album photos
-6. **Cagnotte** - Liens de paiement et RIB
-7. **Dress code** - Couleurs et conseils
-8. **Compte à rebours** - Temps restant
-9. **FAQ** - Questions fréquentes
-
-## 🔧 Personnalisation avancée
-
-### Modifier la timeline
-Dans `index.html`, section "Notre histoire" :
-```html
-<div class="timeline-item">
-    <div class="timeline-date">2023</div>
-    <div class="timeline-content">
-        <h3>Titre de l'événement</h3>
-        <p>Description de l'événement</p>
-    </div>
-</div>
-```
-
-### Ajouter des questions FAQ
-```html
-<div class="faq-item">
-    <div class="faq-question">
-        <h3>Votre question ?</h3>
-        <span class="faq-toggle">+</span>
-    </div>
-    <div class="faq-answer">
-        <p>Votre réponse</p>
-    </div>
-</div>
-```
-
-### Modifier le programme
-Dans la section "Programme", ajoutez ou modifiez les événements :
-```html
-<div class="event">
-    <span class="event-time">15h00</span>
-    <span class="event-desc">Description de l'événement</span>
-</div>
-```
-
-## 🌐 Hébergement
-
-### Options gratuites
-- **GitHub Pages** : Parfait pour les sites statiques
-- **Netlify** : Déploiement facile avec drag & drop
-- **Vercel** : Performance optimale
-
-### Options payantes
-- **OVH** : Hébergement français
-- **InfinityFree** : Hébergement gratuit avec publicités
-
-## 📞 Support
-
-### Problèmes courants
-
-#### L'image de fond ne s'affiche pas
-- Vérifiez que `image.jpg` est dans le bon dossier
-- Vérifiez l'extension du fichier (.jpg, .jpeg, .png)
-- Essayez avec une image plus petite
-
-#### Les liens de paiement ne fonctionnent pas
-- Remplacez tous les `href="#"` par vos vrais liens
-- Testez les liens dans un nouvel onglet
-
-#### Le compte à rebours ne fonctionne pas
-- Vérifiez la date dans `script.js`
-- Ouvrez la console du navigateur (F12) pour voir les erreurs
-
-### Debug
-Ouvrez la console du navigateur (F12) et tapez :
-```javascript
-debugInfo()
-```
-
-## 🎨 Personnalisation du design
-
-### Changer les polices
-Dans `index.html`, modifiez les liens Google Fonts :
-```html
-<link href="https://fonts.googleapis.com/css2?family=VOTRE_POLICE:wght@400;700&display=swap" rel="stylesheet">
-```
-
-### Ajouter des animations
-Dans `style.css`, ajoutez vos propres animations :
-```css
-@keyframes votreAnimation {
-    from { /* état initial */ }
-    to { /* état final */ }
-}
-```
-
-## 📊 Performance
-
-### Optimisations incluses
-- **Images optimisées** (à faire manuellement)
-- **CSS minifié** (optionnel)
-- **JavaScript optimisé**
-- **Chargement asynchrone** des polices
-
-### Conseils d'optimisation
-1. **Compressez** vos images (TinyPNG, Squoosh)
-2. **Utilisez** des formats modernes (WebP)
-3. **Minifiez** CSS/JS en production
-4. **Activez** la compression GZIP sur votre serveur
-
-## 🔒 Sécurité
-
-### Bonnes pratiques
-- **Ne partagez jamais** vos vrais RIB en public
-- **Utilisez** des liens sécurisés (HTTPS)
-- **Vérifiez** les permissions de vos albums photos
-- **Testez** tous les liens avant publication
-
-## 📝 Licence
-
-Ce template est libre d'utilisation pour des mariages personnels.
-Modifiez-le selon vos besoins !
 
 ---
 
-**💝 Fait avec amour pour Sarah & Antonin**
+## 🚀 Deploy on Netlify
 
-*N'oubliez pas de personnaliser ce README selon vos besoins spécifiques !* 
+### Method 1: Drag & Drop (Easiest)
+
+1. Go to [netlify.com](https://www.netlify.com/) and create a free account
+2. Click on **"Add new site"** → **"Deploy manually"**
+3. Drag and drop the entire `Wedding Website` folder into the upload area
+4. Wait a few seconds for deployment
+5. Your site is live! Netlify will give you a URL like `https://random-name-12345.netlify.app`
+6. Optional: Click on **"Domain settings"** to customize your URL (e.g., `annabelle-nathan-wedding.netlify.app`)
+
+### Method 2: Connect Git Repository
+
+1. Push this project to a GitHub, GitLab, or Bitbucket repository
+2. Go to [netlify.com](https://www.netlify.com/) and log in
+3. Click on **"Add new site"** → **"Import an existing project"**
+4. Connect your Git provider and select your repository
+5. Configure build settings:
+   - **Build command**: Leave empty
+   - **Publish directory**: Leave empty or use `/`
+6. Click **"Deploy site"**
+7. Your site will automatically rebuild whenever you push changes to your repository
+
+### Method 3: Netlify CLI
+
+```bash
+# Install Netlify CLI
+npm install -g netlify-cli
+
+# Navigate to project folder
+cd "Wedding Website"
+
+# Deploy
+netlify deploy
+
+# Follow prompts, then deploy to production
+netlify deploy --prod
+```
+
+## 🔧 Technical Details
+
+- **HTML5**: Semantic markup for accessibility
+- **CSS3**: Modern features including CSS Grid, Flexbox, and CSS variables
+- **JavaScript ES6+**: Vanilla JS with no dependencies
+- **Fonts**: Google Fonts (Cormorant Garamond & Montserrat)
+- **Icons**: Unicode symbols (no icon library needed)
+- **Browser Support**: All modern browsers (Chrome, Firefox, Safari, Edge)
+
+## 📱 Sections
+
+1. **Hero** - Main title with wedding date and location
+2. **Our Story** - Romantic story of the couple
+3. **Weekend Schedule** - Friday, Saturday, Sunday timeline
+4. **Venue & Travel** - Hotel description and directions
+5. **Dress Code** - Style suggestions with photo examples
+6. **Practical Information** - Accommodation, beaches, weather, transport
+7. **Gallery** - Video and photo placeholders
+8. **Gift Fund** - Revolut link and QR code
+9. **Footer** - Simple closing
+
+## 🌍 Language System
+
+The language switcher stores the user's preference in `localStorage`, so their choice persists across visits. The default language is French.
+
+## 💡 Tips
+
+- **Custom Domain**: You can connect your own domain in Netlify's domain settings (e.g., `annabelleetNathan.com`)
+- **SSL/HTTPS**: Netlify automatically provides free SSL certificates
+- **Performance**: The site is already optimized with lazy loading and smooth animations
+- **Analytics**: Add Google Analytics or Netlify Analytics if you want to track visitors
+- **Contact Form**: If you want to add RSVP functionality, you can use Netlify Forms (add `netlify` attribute to a form)
+
+## 🎉 That's it!
+
+Your wedding website is ready to share with your guests. Enjoy your special day in Sardinia!
+
+---
+
+**Made with ♥ for Annabelle & Nathan**
+

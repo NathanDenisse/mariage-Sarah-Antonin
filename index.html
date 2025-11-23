@@ -1,532 +1,373 @@
 <!DOCTYPE html>
-
 <html lang="fr">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sarah & Antonin - Mariage 23 août 2025</title>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link rel="stylesheet" href="style.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500&display=swap"
-    rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.7/dist/umd/supabase.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Wedding website for Annabelle & Nathan - July 10th & 11th in Sardinia">
+    <title>Annabelle & Nathan - Wedding in Sardinia</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
-
 <body>
-  <!-- Navigation sticky minimaliste -->
-  <nav class="navbar" role="navigation" aria-label="Navigation principale">
-    <div class="nav-container">
-      <a href="#accueil" class="nav-logo" aria-label="Accueil">S&A</a>
-      <button class="hamburger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="nav-menu">
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
-      </button>
-      <ul class="nav-menu" id="nav-menu">
-        <li><a href="#accueil" class="nav-link">Accueil</a></li>
-        <li><a href="#histoire" class="nav-link">Notre histoire</a></li>
-        <li><a href="#programme" class="nav-link">Programme</a></li>
-        <li><a href="#infos" class="nav-link">Infos pratiques</a></li>
-        <li><a href="#galerie" class="nav-link">Galerie</a></li>
-        <li><a href="#cagnotte" class="nav-link">Cagnotte</a></li>
-        <li><a href="#dresscode" class="nav-link">Dress code</a></li>
-        <li><a href="#covoiturage" class="nav-link">Covoiturage</a></li>
-      </ul>
+    <!-- Language switcher -->
+    <div class="language-switcher">
+        <button class="lang-btn active" data-lang="fr">FR</button>
+        <span class="lang-separator">|</span>
+        <button class="lang-btn" data-lang="en">EN</button>
     </div>
-  </nav>
 
-  <!-- Section Accueil -->
-  <section id="accueil" class="hero">
-    <div class="hero-content">
-      <div class="hero-photo">
-        <img src="IMG_9182.jpeg" alt="Sarah & Antonin">
-      </div>
-      <h1 class="hero-title">Sarah & Antonin</h1>
-      <p class="hero-date">23 août 2025</p>
-      <!-- Compte à rebours discret (remonté) -->
-      <div class="countdown-container">
-        <div class="countdown-item">
-          <span class="countdown-number" id="days">00</span>
-          <span class="countdown-label">Jours</span>
-        </div>
-        <div class="countdown-item">
-          <span class="countdown-number" id="hours">00</span>
-          <span class="countdown-label">Heures</span>
-        </div>
-        <div class="countdown-item">
-          <span class="countdown-number" id="minutes">00</span>
-          <span class="countdown-label">Min</span>
-        </div>
-        <div class="countdown-item">
-          <span class="countdown-number" id="seconds">00</span>
-          <span class="countdown-label">Sec</span>
-        </div>
-      </div>
-      <p class="hero-subtitle">Nous nous marions !</p>
-    </div>
-    <div class="hero-background"></div>
-  </section>
+    <!-- Navigation bar -->
+    <nav class="navbar" id="navbar">
+        <ul class="nav-menu">
+            <li><a href="#hero" class="nav-link lang-fr">Accueil</a><a href="#hero" class="nav-link lang-en">Home</a></li>
+            <li><a href="#story" class="nav-link lang-fr">Notre histoire</a><a href="#story" class="nav-link lang-en">Our Story</a></li>
+            <li><a href="#schedule" class="nav-link lang-fr">Programme</a><a href="#schedule" class="nav-link lang-en">Schedule</a></li>
+            <li><a href="#venue" class="nav-link lang-fr">Lieu</a><a href="#venue" class="nav-link lang-en">Venue</a></li>
+            <li><a href="#dresscode" class="nav-link lang-fr">Dress code</a><a href="#dresscode" class="nav-link lang-en">Dress Code</a></li>
+            <li><a href="#practical" class="nav-link lang-fr">Infos pratiques</a><a href="#practical" class="nav-link lang-en">Practical Info</a></li>
+            <li><a href="#gallery" class="nav-link lang-fr">Galerie</a><a href="#gallery" class="nav-link lang-en">Gallery</a></li>
+            <li><a href="#gift" class="nav-link lang-fr">Cagnotte</a><a href="#gift" class="nav-link lang-en">Gift Fund</a></li>
+        </ul>
+    </nav>
 
-  <!-- Section Notre Histoire -->
-  <section id="histoire" class="section">
-    <div class="container">
-      <h2 class="section-title">Notre Histoire</h2>
-      <div class="timeline">
-        <div class="timeline-item">
-          <div class="timeline-date">2017</div>
-          <div class="timeline-content">
-            <h3>Première rencontre</h3>
-            <p>Nous nous sommes rencontrés à une soirée de l'ambassadeur au Kremlin-Bicêtre. Un regard, un sourire, et
-              notre histoire a commencé...</p>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-date">2019</div>
-          <div class="timeline-content">
-            <h3>Premier appartement ensemble</h3>
-            <p>Après un an de relation seulement, nous avons décidé de vivre ensemble dans notre premier appartement.
-              Une nouvelle aventure commençait.</p>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-date">2024</div>
-          <div class="timeline-content">
-            <h3>La demande en mariage</h3>
-            <p>Antonin a demandé Sarah en mariage lors d'un voyage en Sicile, au coucher du soleil sur la plage. Un
-              moment magique qui a scellé notre destin.</p>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-date">2025</div>
-          <div class="timeline-content">
-            <h3>Le grand jour</h3>
-            <p>Le 23 août 2025, nous célébrerons notre amour entourés de nos proches les plus chers.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+    <!-- Main content -->
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="hero">
+            <div class="hero-content">
+                <div class="hero-photo">
+                    <img src="assets/IMG_3289.JPG" alt="Annabelle & Nathan" class="hero-couple-photo">
+                </div>
+                
+                <h1 class="hero-title lang-fr">Mariage Annabelle & Nathan</h1>
+                <h1 class="hero-title lang-en">Annabelle & Nathan's Wedding</h1>
+                
+                <p class="hero-subtitle lang-fr">
+                    Nous célébrons notre mariage en Sardaigne, les 10 & 11 juillet, à l'hôtel Il Monastero.
+                </p>
+                <p class="hero-subtitle lang-en">
+                    We will celebrate our wedding in Sardinia on July 10th & 11th at Hotel Il Monastero.
+                </p>
+                
+                <a href="#story" class="scroll-btn">
+                    <span class="lang-fr">Découvrir</span>
+                    <span class="lang-en">Discover</span>
+                    <span class="arrow">↓</span>
+                </a>
+            </div>
+        </section>
 
-  <!-- Section Programme -->
-  <section id="programme" class="section bg-light">
-    <div class="container">
-      <h2 class="section-title">Programme du Week-end</h2>
-      <div class="programme-grid">
-        <div class="programme-day">
-          <h3>Vendredi 22 août</h3>
-          <div class="programme-events">
-            <div class="event">
-              <span class="event-time">14h30</span>
-              <span class="event-desc">Cérémonie civile à la mairie<br><small><span class="event-badge">Famille et
-                    témoins uniquement</span></small><br><small>⚠️ Parking compliqué - Privilégiez les
-                  transports</small></span>
-            </div>
-            <div class="event">
-              <span class="event-time">17h30</span>
-              <span class="event-desc">Détente et jeux à la piscine<br><small><span class="event-badge">Tous les
-                    invités</span> - Volleyball, pétanque</small></span>
-            </div>
-            <div class="event">
-              <span class="event-time">18h30</span>
-              <span class="event-desc">Apéritif dînatoire préparé par la famille<br><small><span
-                    class="event-badge">Ouvert à tous les invités</span></small></span>
-            </div>
-            <div class="event">
-              <span class="event-time">Soirée</span>
-              <span class="event-desc">Nuit dans les tipis<br><small><span class="event-badge">Pour les personnes ayant
-                    réservé</span></small></span>
-            </div>
-          </div>
-        </div>
-        <div class="programme-day">
-          <h3>Samedi 23 août</h3>
-          <div class="programme-events">
-            <div class="event">
-              <span class="event-time">15h00</span>
-              <span class="event-desc">Rendez-vous au domaine</span>
-            </div>
-            <div class="event">
-              <span class="event-time">16h00</span>
-              <span class="event-desc">Cérémonie laïque<br><small>Un photographe sera là pour immortaliser ce moment,
-                  merci de profiter sans sortir vos téléphones.</small></span>
-            </div>
-            <div class="event">
-              <span class="event-time">17h00</span>
-              <span class="event-desc">Vin d'honneur</span>
-            </div>
-            <div class="event">
-              <span class="event-time">20h00</span>
-              <span class="event-desc">Dîner de mariage</span>
-            </div>
-            <div class="event">
-              <span class="event-time">23h00</span>
-              <span class="event-desc">Soirée dansante<br><small>Jusqu'au bout de la nuit !</small></span>
-            </div>
-            <div class="event">
-              <span class="event-time">Nuit</span>
-              <span class="event-desc">Nuit dans les tipis<br><small><span class="event-badge">Pour les personnes ayant
-                    réservé</span></small></span>
-            </div>
-          </div>
-        </div>
-        <div class="programme-day">
-          <h3>Dimanche 24 août</h3>
-          <div class="programme-events">
-            <div class="event">
-              <span class="event-time">10h00</span>
-              <span class="event-desc">Brunch autour de la piscine<br><small>Tous les invités sont les
-                  bienvenus</small></span>
-            </div>
-            <div class="event">
-              <span class="event-time">Après-midi</span>
-              <span class="event-desc">Détente libre à la piscine</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+        <!-- Our Story Section -->
+        <section id="story" class="section story-section">
+            <div class="container">
+                <h2 class="section-title lang-fr">Notre histoire</h2>
+                <h2 class="section-title lang-en">Our Story</h2>
+                
+                <div class="story-content">
+                    <p class="lang-fr">
+                        Annabelle et Nathan étaient d'abord les meilleurs amis du monde. Un week-end entre amis à Jullouville, en Normandie, a tout changé : ils sont tombés amoureux instantanément. Peu après, Nathan est parti un an aux États-Unis, et Annabelle l'a rejoint pour un road trip inoubliable à travers l'Amérique. Ensemble, ils ont ensuite vécu une année magique à Dublin pendant qu'Annabelle terminait ses études, avant de retrouver leurs amis dans une colocation aussi folle qu'inoubliable.
+                    </p>
+                    <p class="lang-fr">
+                        Après de nombreux voyages et une vie remplie d'aventures partagées, Nathan a demandé Annabelle en mariage à Santorin, alors que le soleil se couchait sur la mer Égée. Quelques mois plus tard, ils emménageaient dans leur premier appartement, marquant le début d'un nouveau chapitre. Aujourd'hui, après plus de cinq ans d'amour, de rires et de complicité, ils se retrouvent en Sardaigne pour se dire « oui » entourés de ceux qu'ils aiment.
+                    </p>
 
-  <!-- Section Infos Pratiques -->
-  <section id="infos" class="section">
-    <div class="container">
-      <h2 class="section-title">Informations Pratiques</h2>
-      <div class="infos-grid">
-        <div class="info-card">
-          <h3>📍 Lieu principal</h3>
-          <p><strong>Domaine les Aigas</strong><br>
-            <a href="https://maps.app.goo.gl/ggo6JS3YP21zW1Sm6" target="_blank" class="map-link">Voir sur Google
-              Maps</a><br>
-            <small>Rendez-vous samedi 23 août à 15h00</small>
-          </p>
-        </div>
-        <div class="info-card">
-          <h3>🏛️ Cérémonie civile</h3>
-          <p><strong>Hôtel de Ville de Nice</strong><br>
-            <a href="https://maps.app.goo.gl/aLhipTYX9gAA22MK7" target="_blank" class="map-link">Voir sur Google
-              Maps</a><br>
-            <small>⚠️ Parking compliqué - Privilégiez les transports</small>
-          </p>
-        </div>
-        <div class="info-card">
-          <h3>🚗 Accès & Transport</h3>
-          <p>Accessible en train depuis Nice (environ 1h30)<br>
-            Puis 5 minutes en voiture depuis la gare<br>
-            Parking disponible sur place au domaine</p>
-        </div>
-        <div class="info-card">
-          <h3>🏨 Hébergement</h3>
-          <p>Tipis de 6 personnes<br>
-            Literie + serviettes comprises<br>
-            Salles de bains avec douche<br>
-            <small>Réservation obligatoire</small>
-          </p>
-        </div>
-        <div class="info-card">
-          <h3>🏊‍♀️ Activités</h3>
-          <p>Piscine disponible<br>
-            Volleyball et pétanque<br>
-            Espaces de détente<br>
-            <small>N'oubliez pas vos maillots de bain !</small>
-          </p>
-        </div>
-        <div class="info-card">
-          <h3>📞 Contact</h3>
-          <p>Sarah : 06 95 72 22 28<br>
-            Antonin : 06 42 53 54 67</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Section Galerie -->
-  <section id="galerie" class="section bg-light">
-    <div class="container">
-      <h2 class="section-title">Galerie Photos</h2>
-      <div class="galerie-content"
-        style="max-width: 600px; margin: 0 auto; text-align: center; background: white; border-radius: 18px; box-shadow: 0 2px 12px rgba(168,213,186,0.08); padding: 2.5rem 1.5rem;">
-        <p class="galerie-intro"
-          style="font-size:1.1rem; margin-bottom:1.5rem; color:var(--color-pastel-green); font-weight:600;">Partageons
-          nos plus beaux souvenirs du mariage !</p>
-        <a href="https://photos.app.goo.gl/LyT8Hda6dLkXqjHk8" class="galerie-link no-underline" target="_blank"
-          style="display:inline-block; margin-bottom:1.2rem; text-decoration:none;">
-          <div class="galerie-button"
-            style="background:linear-gradient(135deg, var(--color-pastel-green), var(--color-rose-gold)); color:white; padding:1.2rem 2rem; border-radius:16px; font-size:1.15rem; font-weight:600; box-shadow:0 2px 8px rgba(168,213,186,0.10); transition:0.2s; text-decoration:none;">
-            📸 Voir l'album Google Photos
-          </div>
-        </a>
-        <div class="galerie-info"
-          style="background: #f8f9fa; border-radius: 12px; padding: 1.2rem 1rem; margin-top: 1rem; text-align: left; box-shadow: 0 1px 4px rgba(168,213,186,0.07);">
-          <ul style="list-style:none; padding:0; margin:0;">
-            <li style="margin-bottom:0.7rem;"><strong>➔</strong> Chacun peut ajouter ses photos (max 30 par personne)
-            </li>
-            <li style="margin-bottom:0.7rem;"><strong>➔</strong> Merci de ne pas prendre de photos pendant la cérémonie
-              laïque (photographe pro)</li>
-            <li><strong>➔</strong> Partagez vos plus beaux clichés !</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Section Cagnotte -->
-  <section id="cagnotte" class="section">
-    <div class="container">
-      <h2 class="section-title">Cagnotte</h2>
-      <div class="cagnotte-content" style="max-width: 500px; margin: 0 auto; text-align: center;">
-        <p class="cagnotte-intro" style="font-size:1.2rem; margin-bottom:2rem;">Si vous souhaitez participer à notre
-          voyage de noces ou à nos futurs projets à deux !</p>
-
-        <div class="cagnotte-block"
-          style="background: #f8f9fa; border-radius: 18px; padding: 2rem 1rem; box-shadow: 0 2px 12px rgba(168,213,186,0.08); margin-bottom:2rem;">
-          <a href="https://revolut.me/s_denisse" target="_blank" style="display:inline-block; text-decoration:none;">
-            <img src="frame.png" alt="QR Code Revolut"
-              style="width:140px; height:140px; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.08); margin-bottom:0.7rem;">
-            <div style="font-weight:600; color:var(--color-pastel-green); font-size:1.1rem;">Payer via Revolut</div>
-            <div style="font-size:0.95rem; color:var(--color-gray);">Scannez ou cliquez pour participer</div>
-          </a>
-        </div>
-
-        <div class="rib-section" style="margin-top:2rem;">
-          <h3 style="color:var(--color-pastel-green); margin-bottom:1rem;">Virement bancaire</h3>
-          <div class="rib-card"
-            style="background:white; border-radius:15px; box-shadow:var(--shadow-light); padding:1.5rem; display:inline-block; text-align:left;">
-            <p><strong>IBAN :</strong> FR76 3000 4014 7100 0011 0916 016</p>
-            <p><strong>BIC :</strong> BNPAFRPPXXX</p>
-            <p><strong>Titulaire :</strong> Antonin Domart</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Section Dress Code -->
-  <section id="dresscode" class="section bg-light">
-    <div class="container">
-      <h2 class="section-title">Dress Code</h2>
-      <div class="dresscode-content"
-        style="max-width: 600px; margin: 0 auto; background: white; border-radius: 18px; box-shadow: 0 2px 12px rgba(168,213,186,0.08); padding: 2.5rem 1.5rem; text-align: center;">
-        <h3 style="color:#b71c1c; font-size:1.3rem; margin-bottom:1.2rem;">Thème : <span
-            style="color:#b71c1c;">Rouge</span> & <span style="color:#388e3c;">Vert</span></h3>
-        <p style="font-size:1.1rem; color:var(--color-gray); margin-bottom:2rem;">Le dress code du mariage est simple :
-          <strong style="color:#b71c1c;">rouge</strong> et <strong style="color:#388e3c;">vert</strong> !<br>Mais venez
-          comme vous êtes, l'important c'est de célébrer ensemble.
-        </p>
-        <div style="display:flex; justify-content:center; gap:2rem; margin-bottom:2rem;">
-          <div
-            style="width:80px; height:80px; border-radius:50%; background:#b71c1c; display:flex; align-items:center; justify-content:center; color:white; font-size:1.1rem; font-weight:600; box-shadow:0 2px 8px rgba(183,28,28,0.10);">
-            Rouge</div>
-          <div
-            style="width:80px; height:80px; border-radius:50%; background:#388e3c; display:flex; align-items:center; justify-content:center; color:white; font-size:1.1rem; font-weight:600; box-shadow:0 2px 8px rgba(56,142,60,0.10);">
-            Vert</div>
-        </div>
-        <div class="dresscode-tips" style="text-align:left; margin:0 auto; max-width:400px;">
-          <h4 style="color:var(--color-pastel-green); margin-bottom:0.7rem;">Conseils pratiques</h4>
-          <ul style="color:var(--color-gray); font-size:1rem;">
-            <li><strong>Chaleur</strong> : Prévoyez chapeaux, lunettes de soleil et hydratez-vous (avec de l'eau aussi
-              !)</li>
-            <li><strong>Chaussures confortables</strong> : Une partie de la cérémonie se déroulera en extérieur</li>
-            <li><strong>Maillot de bain</strong> : Conseillé pour le dimanche après-midi</li>
-            <li><strong>Tenue élégante</strong> : Chic décontracté pour le samedi soir</li>
-            <li><strong>Veste légère</strong> : Les soirées peuvent être fraîches</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Section Covoiturage -->
-  <section id="covoiturage" class="section bg-light">
-    <div class="container">
-      <h2 class="section-title">Covoiturage</h2>
-      <div class="covoiturage-content"
-        style="max-width: 700px; margin: 0 auto; background: white; border-radius: 18px; box-shadow: 0 2px 12px rgba(168,213,186,0.08); padding: 2.5rem 1.5rem; text-align: center;">
-
-        <p style="font-size:1.1rem; color:var(--color-gray); margin-bottom:2rem;">Vous souhaitez proposer ou rechercher
-          un covoiturage ? Utilisez les options ci-dessous pour organiser vos trajets ensemble !</p>
-
-        <!-- Boutons d'action principaux -->
-        <div class="covoiturage-actions"
-          style="display: flex; gap: 1rem; justify-content: center; margin-bottom: 2rem; flex-wrap: wrap;">
-          <button id="btn-proposer" class="covoiturage-btn"
-            style="background: linear-gradient(135deg, var(--color-pastel-green), #8bc34a); color: white; border: none; padding: 1rem 2rem; border-radius: 12px; font-size: 1.1rem; font-weight: 600; cursor: pointer; box-shadow: 0 2px 8px rgba(168,213,186,0.15); transition: 0.2s;">
-            🚗 Proposer un trajet
-          </button>
-          <button id="btn-rechercher" class="covoiturage-btn"
-            style="background: linear-gradient(135deg, #ff9800, #f57c00); color: white; border: none; padding: 1rem 2rem; border-radius: 12px; font-size: 1.1rem; font-weight: 600; cursor: pointer; box-shadow: 0 2px 8px rgba(255,152,0,0.15); transition: 0.2s;">
-            🔍 Rechercher un trajet
-          </button>
-        </div>
-
-        <!-- Formulaire pour proposer un trajet -->
-        <div id="form-proposer" class="covoiturage-form"
-          style="display: none; text-align: left; background: #f8f9fa; border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem;">
-          <h3 style="color: var(--color-pastel-green); margin-bottom: 1rem;">🚗 Proposer un trajet</h3>
-          <form id="covoiturage-form">
-            <div style="display: grid; gap: 1rem; grid-template-columns: 1fr 1fr;">
-              <div>
-                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--color-gray);">Votre
-                  nom *</label>
-                <input type="text" id="nom" required
-                  style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem;">
-              </div>
-              <div>
-                <label
-                  style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--color-gray);">Téléphone
-                  *</label>
-                <input type="tel" id="telephone" required
-                  style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem;">
-              </div>
+                    <p class="lang-en">
+                        Annabelle and Nathan started out as the very best of friends. A weekend getaway with friends in Jullouville, Normandy, changed everything: they fell in love instantly. Shortly after, Nathan left for a year in the United States, and Annabelle joined him for an unforgettable road trip across America. Together, they then spent a magical year in Dublin while Annabelle was finishing her studies, before reuniting with friends in a wonderfully chaotic shared flat.
+                    </p>
+                    <p class="lang-en">
+                        After countless trips and a life filled with shared adventures, Nathan proposed to Annabelle in Santorini, as the sun was setting over the Aegean Sea. A few months later, they moved into their first apartment together, marking the beginning of a new chapter. Today, after more than five years of love, laughter, and deep connection, they are gathering in Sardinia to say "yes" surrounded by those they cherish most.
+                    </p>
+                </div>
             </div>
-            <div style="display: grid; gap: 1rem; grid-template-columns: 1fr 1fr;">
-              <div>
-                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--color-gray);">Ville
-                  de départ *</label>
-                <input type="text" id="depart" required
-                  style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem;">
-              </div>
-              <div>
-                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--color-gray);">Ville
-                  d'arrivée *</label>
-                <input type="text" id="arrivee" required
-                  style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem;">
-              </div>
+        </section>
+
+        <!-- Schedule Section -->
+        <section id="schedule" class="section schedule-section">
+            <div class="container">
+                <h2 class="section-title lang-fr">Programme du week-end</h2>
+                <h2 class="section-title lang-en">Weekend Schedule</h2>
+                
+                <div class="timeline">
+                    <!-- Friday -->
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <h3 class="timeline-day lang-fr">Vendredi</h3>
+                            <h3 class="timeline-day lang-en">Friday</h3>
+                            <ul class="timeline-list lang-fr">
+                                <li>Arrivée des premiers invités dans l'après-midi et en soirée</li>
+                                <li>Accès à la piscine et aux infrastructures de l'hôtel</li>
+                                <li>Selon les envies : tournoi de volley sur la plage, jeux (Mölkky, etc.), location de canoës</li>
+                            </ul>
+                            <ul class="timeline-list lang-en">
+                                <li>Guests start arriving in the afternoon and evening</li>
+                                <li>Access to the hotel pool and facilities</li>
+                                <li>Depending on everyone's mood: beach volleyball, games (like Mölkky), and maybe canoe rentals</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Saturday -->
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <h3 class="timeline-day lang-fr">Samedi</h3>
+                            <h3 class="timeline-day lang-en">Saturday</h3>
+                            <ul class="timeline-list lang-fr">
+                                <li>Matinée libre : plage, piscine, balades</li>
+                                <li><strong>15h :</strong> cérémonie laïque</li>
+                                <li><strong>16h–20h :</strong> vin d'honneur</li>
+                                <li><strong>20h–22h30 :</strong> dîner</li>
+                                <li><strong>À partir de 22h30 :</strong> lancement de la soirée</li>
+                            </ul>
+                            <ul class="timeline-list lang-en">
+                                <li>Free morning: beach, pool, walks</li>
+                                <li><strong>3:00 pm:</strong> symbolic ceremony</li>
+                                <li><strong>4:00 pm – 8:00 pm:</strong> cocktail & reception</li>
+                                <li><strong>8:00 pm – 10:30 pm:</strong> dinner</li>
+                                <li><strong>From 10:30 pm:</strong> party time!</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Sunday -->
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <h3 class="timeline-day lang-fr">Dimanche</h3>
+                            <h3 class="timeline-day lang-en">Sunday</h3>
+                            <ul class="timeline-list lang-fr">
+                                <li>Moment tranquille à l'hôtel ou à la plage</li>
+                                <li>Possibilité d'un dernier volley sur la plage</li>
+                                <li>Départs au cours de la journée</li>
+                            </ul>
+                            <ul class="timeline-list lang-en">
+                                <li>Relaxed time at the hotel or on the beach</li>
+                                <li>Maybe one last volleyball game on the sand</li>
+                                <li>Guests leave throughout the day</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div style="display: grid; gap: 1rem; grid-template-columns: 1fr 1fr;">
-              <div>
-                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--color-gray);">Date
-                  *</label>
-                <select id="date" required
-                  style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem;">
-                  <option value="">Choisir une date</option>
-                  <option value="22-08-2025">Vendredi 22 août 2025</option>
-                  <option value="23-08-2025">Samedi 23 août 2025</option>
-                  <option value="24-08-2025">Dimanche 24 août 2025</option>
-                </select>
-              </div>
-              <div>
-                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--color-gray);">Heure
-                  de départ *</label>
-                <input type="time" id="heure" required
-                  style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem;">
-              </div>
+        </section>
+
+        <!-- Venue Section -->
+        <section id="venue" class="section venue-section">
+            <div class="container">
+                <h2 class="section-title lang-fr">Lieu & accès</h2>
+                <h2 class="section-title lang-en">Venue & Travel</h2>
+                
+                <div class="venue-content">
+                    <!-- Venue Description -->
+                    <div class="venue-block">
+                        <h3 class="venue-subtitle lang-fr">Description du lieu</h3>
+                        <h3 class="venue-subtitle lang-en">Venue Description</h3>
+                        <p class="lang-fr">
+                            L'hôtel Il Monastero est un ancien monastère au charme unique, entouré de jardins, d'orangers et d'une grande piscine tropicale. Les chambres sont décorées dans un style chaleureux et authentique, parfait pour un week-end hors du temps. C'est un coin de paradis en Sardaigne, à quelques minutes des plages et de la mer turquoise.
+                        </p>
+                        <p class="lang-en">
+                            Hotel Il Monastero is a former monastery with a unique charm, surrounded by gardens, orange trees and a large tropical-style pool. The rooms are warm and authentic, ideal for a weekend out of time. It is a little corner of paradise in Sardinia, just a few minutes away from the sea and turquoise beaches.
+                        </p>
+                    </div>
+
+                    <!-- How to Get There -->
+                    <div class="venue-block">
+                        <h3 class="venue-subtitle lang-fr">Accès</h3>
+                        <h3 class="venue-subtitle lang-en">How to Get There</h3>
+                        <ul class="access-list lang-fr">
+                            <li><strong>Depuis l'aéroport de Cagliari :</strong> environ 40 minutes en voiture</li>
+                            <li><strong>Depuis l'aéroport d'Olbia :</strong> possibilité de venir en voiture (prévoir un trajet plus long)</li>
+                            <li><strong>Depuis Porto Torres :</strong> arrivée en ferry, puis route en voiture jusqu'à l'hôtel</li>
+                            <li><strong>Navettes :</strong> des navettes depuis l'aéroport de Cagliari pourront être organisées si besoin</li>
+                        </ul>
+                        <ul class="access-list lang-en">
+                            <li><strong>From Cagliari airport:</strong> about 40 minutes by car</li>
+                            <li><strong>From Olbia airport:</strong> you can also drive down (allow for a longer journey)</li>
+                            <li><strong>From Porto Torres:</strong> arrive by ferry, then drive to the hotel</li>
+                            <li><strong>Shuttles:</strong> shuttles from Cagliari airport may be arranged if needed</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <div>
-              <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--color-gray);">Places
-                disponibles *</label>
-              <input type="number" id="places" min="1" max="8" required
-                style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem;">
+        </section>
+
+        <!-- Dress Code Section -->
+        <section id="dresscode" class="section dresscode-section">
+            <div class="container">
+                <h2 class="section-title lang-fr">Dress code</h2>
+                <h2 class="section-title lang-en">Dress Code</h2>
+                
+                <div class="dresscode-content">
+                    <p class="lang-fr">
+                        Nous vous proposons un dress code chic et estival, dans les tons terracotta et couleurs de coucher de soleil. Laissez-vous inspirer par les couleurs chaudes de la Sardaigne : orangés, rouilles, beiges, dorés, nude…
+                    </p>
+                    <p class="lang-en">
+                        We suggest a chic, summer dress code in terracotta and sunset tones. Think of the warm colors of Sardinia: orange, rust, beige, gold, nude…
+                    </p>
+                    
+                    <div class="dresscode-gallery">
+                        <div class="dresscode-placeholder">
+                            <img src="assets/dresscode-1.jpg" alt="Dress code example 1">
+                        </div>
+                        <div class="dresscode-placeholder">
+                            <img src="assets/dresscode-2.jpg" alt="Dress code example 2">
+                        </div>
+                        <div class="dresscode-placeholder">
+                            <img src="assets/dresscode-3.jpg" alt="Dress code example 3">
+                        </div>
+                    </div>
+                    <p class="dresscode-note lang-fr"><em>Des exemples en photos seront ajoutés prochainement.</em></p>
+                    <p class="dresscode-note lang-en"><em>Photo examples will be added soon.</em></p>
+                </div>
             </div>
-            <div>
-              <label
-                style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--color-gray);">Commentaires
-                (optionnel)</label>
-              <textarea id="commentaires" rows="3" placeholder="Précisions sur le point de rdv, bagages, etc."
-                style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; resize: vertical;"></textarea>
+        </section>
+
+        <!-- Practical Information Section -->
+        <section id="practical" class="section practical-section">
+            <div class="container">
+                <h2 class="section-title lang-fr">Infos pratiques</h2>
+                <h2 class="section-title lang-en">Practical Information</h2>
+                
+                <div class="practical-grid">
+                    <!-- Accommodation -->
+                    <div class="practical-card">
+                        <h3 class="practical-title lang-fr">Hébergement</h3>
+                        <h3 class="practical-title lang-en">Accommodation</h3>
+                        <p class="lang-fr">
+                            L'hôtel a été privatisé pour le mariage et les chambres ont été attribuées en fonction des places disponibles. Il existe également des logements et Airbnbs dans les environs pour ceux qui préfèrent séjourner à l'extérieur.
+                        </p>
+                        <p class="lang-en">
+                            The hotel has been privatized for the wedding and rooms have been allocated according to availability. There are also houses and Airbnbs nearby for those who prefer to stay off-site.
+                        </p>
+                    </div>
+
+                    <!-- Beaches -->
+                    <div class="practical-card">
+                        <h3 class="practical-title lang-fr">Plages</h3>
+                        <h3 class="practical-title lang-en">Beaches</h3>
+                        <p class="lang-fr">
+                            La plage se trouve à environ 10 minutes du lieu. Plusieurs plages aux eaux turquoise sont accessibles en 10–15 minutes de voiture.
+                        </p>
+                        <p class="lang-en">
+                            The nearest beach is about 10 minutes away. Several turquoise beaches can be reached within a 10–15 minute drive.
+                        </p>
+                    </div>
+
+                    <!-- Weather -->
+                    <div class="practical-card">
+                        <h3 class="practical-title lang-fr">Météo & maillots de bain</h3>
+                        <h3 class="practical-title lang-en">Weather & Swimwear</h3>
+                        <p class="lang-fr">
+                            Il fera beau et chaud : pensez à prendre vos maillots de bain, chapeaux, lunettes de soleil et crème solaire.
+                        </p>
+                        <p class="lang-en">
+                            It will be warm and sunny: don't forget your swimsuits, hats, sunglasses and sunscreen.
+                        </p>
+                    </div>
+
+                    <!-- Transport -->
+                    <div class="practical-card">
+                        <h3 class="practical-title lang-fr">Transports</h3>
+                        <h3 class="practical-title lang-en">Transport</h3>
+                        <p class="lang-fr">
+                            Si besoin, des navettes pourront être mises en place depuis l'aéroport de Cagliari.
+                        </p>
+                        <p class="lang-en">
+                            If needed, shuttles can be arranged from Cagliari airport.
+                        </p>
+                    </div>
+                </div>
             </div>
-            <div style="text-align: center; margin-top: 1.5rem;">
-              <button type="submit"
-                style="background: linear-gradient(135deg, var(--color-pastel-green), #8bc34a); color: white; border: none; padding: 1rem 2rem; border-radius: 12px; font-size: 1.1rem; font-weight: 600; cursor: pointer; box-shadow: 0 2px 8px rgba(168,213,186,0.15); transition: 0.2s;">
-                ✅ Envoyer ma proposition
-              </button>
+        </section>
+
+        <!-- Gallery Section -->
+        <section id="gallery" class="section gallery-section">
+            <div class="container">
+                <h2 class="section-title lang-fr">Galerie</h2>
+                <h2 class="section-title lang-en">Gallery</h2>
+                
+                <p class="gallery-intro lang-fr">
+                    Nous ajouterons ici une vidéo et quelques photos pour vous faire patienter avant le grand jour.
+                </p>
+                <p class="gallery-intro lang-en">
+                    We will add a video and some photos here to help you wait for the big day.
+                </p>
+
+                <!-- Video placeholder -->
+                <div class="video-container">
+                    <div class="video-placeholder">
+                        <p class="lang-fr">📹 Vidéo à venir</p>
+                        <p class="lang-en">📹 Video coming soon</p>
+                    </div>
+                </div>
+
+                <!-- Photo grid -->
+                <div class="photo-grid">
+                    <div class="photo-item">
+                        <img src="assets/photo-1.jpg" alt="Photo 1">
+                    </div>
+                    <div class="photo-item">
+                        <img src="assets/photo-2.jpg" alt="Photo 2">
+                    </div>
+                    <div class="photo-item">
+                        <img src="assets/photo-3.jpg" alt="Photo 3">
+                    </div>
+                    <div class="photo-item">
+                        <img src="assets/photo-4.jpg" alt="Photo 4">
+                    </div>
+                </div>
             </div>
-          </form>
+        </section>
+
+        <!-- Gift Fund Section -->
+        <section id="gift" class="section gift-section">
+            <div class="container">
+                <h2 class="section-title lang-fr">Cagnotte</h2>
+                <h2 class="section-title lang-en">Gift Fund</h2>
+                
+                <div class="gift-content">
+                    <p class="gift-intro lang-fr">
+                        Votre présence est le plus beau des cadeaux. Si vous souhaitez néanmoins nous aider à financer une partie du mariage ou à contribuer à notre voyage de lune de miel en Polynésie française, vous pouvez participer à notre cagnotte :
+                    </p>
+                    <p class="gift-intro lang-en">
+                        Your presence is the greatest gift. If you would still like to help us cover part of the wedding or contribute to our honeymoon in French Polynesia, you can use our gift fund:
+                    </p>
+
+                    <div class="gift-options">
+                        <div class="gift-link">
+                            <p class="lang-fr">• Via ce lien :</p>
+                            <p class="lang-en">• Via this link:</p>
+                            <a href="https://revolut.me/nathanbo0k" target="_blank" rel="noopener noreferrer" class="revolut-link">
+                                revolut.me/nathanbo0k
+                            </a>
+                        </div>
+
+                        <div class="gift-qr">
+                            <p class="lang-fr">• Ou en scannant le QR code ci-dessous :</p>
+                            <p class="lang-en">• Or by scanning the QR code below:</p>
+                            <div class="qr-container">
+                                <img src="assets/qr-revolut.png" alt="QR Code Revolut" class="qr-code">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="footer-text lang-fr">Annabelle & Nathan – Mariage en Sardaigne</p>
+            <p class="footer-text lang-en">Annabelle & Nathan – Wedding in Sardinia</p>
+            <p class="footer-heart">♥</p>
         </div>
+    </footer>
 
-        <!-- Liste des trajets disponibles -->
-        <div id="liste-trajets" class="covoiturage-liste" style="display: none; text-align: left;">
-          <h3 style="color: var(--color-pastel-green); margin-bottom: 1rem;">🔍 Trajets disponibles</h3>
-
-          <!-- Filtres -->
-          <div class="covoiturage-filtres" style="margin-bottom: 1.5rem; display: flex; gap: 1rem; flex-wrap: wrap;">
-            <select id="filtre-date"
-              style="padding: 0.5rem; border: 1px solid #ddd; border-radius: 6px; font-size: 0.9rem;">
-              <option value="">Toutes les dates</option>
-              <option value="22-08-2025">Vendredi 22 août</option>
-              <option value="23-08-2025">Samedi 23 août</option>
-              <option value="24-08-2025">Dimanche 24 août</option>
-            </select>
-            <select id="filtre-direction"
-              style="padding: 0.5rem; border: 1px solid #ddd; border-radius: 6px; font-size: 0.9rem;">
-              <option value="">Toutes les directions</option>
-              <option value="aller">Aller</option>
-              <option value="retour">Retour</option>
-            </select>
-            <select id="filtre-statut"
-              style="padding: 0.5rem; border: 1px solid #ddd; border-radius: 6px; font-size: 0.9rem;">
-              <option value="">Tous les statuts</option>
-              <option value="disponible">Disponible</option>
-              <option value="complet">Complet</option>
-            </select>
-            <button id="btn-rafraichir"
-              style="background: var(--color-pastel-green); color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; font-size: 0.9rem; cursor: pointer;">
-              🔄 Actualiser
-            </button>
-          </div>
-
-          <!-- Tableau des trajets -->
-          <div class="covoiturage-tableau"
-            style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(168,213,186,0.08);">
-            <div class="tableau-header"
-              style="background: var(--color-pastel-green); color: white; padding: 1rem; font-weight: 600; display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1.2fr; gap: 1rem; align-items: center;">
-              <div>👤 Conducteur</div>
-              <div>🚗 Trajet</div>
-              <div>📅 Date</div>
-              <div>⏰ Heure</div>
-              <div>💺 Places</div>
-              <div>⚙️ Actions</div>
-            </div>
-            <div id="trajets-container" style="max-height: 400px; overflow-y: auto;">
-              <!-- Les trajets seront ajoutés ici dynamiquement -->
-            </div>
-          </div>
-
-          <!-- Statistiques -->
-          <div class="covoiturage-stats"
-            style="margin-top: 1rem; display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;">
-            <div class="stat-item"
-              style="background: #e8f5e8; padding: 0.8rem 1.2rem; border-radius: 8px; text-align: center; min-width: 120px;">
-              <div style="font-size: 1.5rem; font-weight: 600; color: var(--color-pastel-green);" id="total-trajets">0
-              </div>
-              <div style="font-size: 0.9rem; color: var(--color-gray);">Trajets</div>
-            </div>
-            <div class="stat-item"
-              style="background: #fff3e0; padding: 0.8rem 1.2rem; border-radius: 8px; text-align: center; min-width: 120px;">
-              <div style="font-size: 1.5rem; font-weight: 600; color: #ff9800;" id="total-places">0</div>
-              <div style="font-size: 0.9rem; color: var(--color-gray);">Places</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Message d'information -->
-        <div style="background: #e8f5e8; border-radius: 12px; padding: 1rem; margin-top: 1.5rem; text-align: left;">
-          <h4 style="color: var(--color-pastel-green); margin-bottom: 0.5rem;">💡 Comment ça marche ?</h4>
-          <ul style="color: var(--color-gray); font-size: 0.95rem; margin: 0; padding-left: 1.2rem;">
-            <li><strong>Proposer un trajet</strong> : Remplissez le formulaire ci-dessus</li>
-            <li><strong>Rechercher un trajet</strong> : Consultez les propositions disponibles</li>
-            <li><strong>Modifier un trajet</strong> : Cliquez sur "Modifier" pour ajuster les places ou marquer comme
-              complet</li>
-            <li><strong>Contact direct</strong> : Appelez directement le conducteur ou utilisez le bouton "Nous
-              contacter"</li>
-          </ul>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <p>Sarah & Antonin © 2025 — Merci pour votre amour !</p>
-    </div>
-  </footer>
-
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
-
 </html>
+
